@@ -9,12 +9,10 @@
   let x = setInterval(() => {
     var now = new Date().getTime();
     var distance = targetDate - now;
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    sec = Math.floor((distance % (1000 * 60)) / 1000);
     // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
@@ -31,25 +29,25 @@
   >
     <div>
       <span class="font-mono text-4xl countdown">
-        <span style="--value:15" />
+        <span style={`--value:${days};`} />
       </span>
       days
     </div>
     <div>
       <span class="font-mono text-4xl countdown">
-        <span style="--value:10" />
+        <span style={`--value:${hours};`} />
       </span>
       hours
     </div>
     <div>
       <span class="font-mono text-4xl countdown">
-        <span style="--value:24" />
+        <span style={`--value:${min};`} />
       </span>
       min
     </div>
     <div>
       <span class="font-mono text-4xl countdown">
-        <span style="--value:60;" />
+        <span style={`--value:${sec};`} />
       </span>
       sec
     </div>

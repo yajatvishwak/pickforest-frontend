@@ -42,7 +42,7 @@
       </div>
       <div class="mt-5 flex gap-7">
         <div class="flex gap-3 ">
-          <CountDown />
+          <CountDown targetDate={new Date("Jan 23, 2022 , 04:00:00")} />
         </div>
       </div>
     </div>
