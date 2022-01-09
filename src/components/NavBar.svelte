@@ -63,6 +63,16 @@
     <div class="modal text-black">
       <div class="modal-box">
         <div class="text-3xl font-bold">Create a Bucket</div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text">Bucket Name</span>
+          </label>
+          <input
+            type="text"
+            placeholder="Super Aweesome Bucket"
+            class="input input-bordered"
+          />
+        </div>
         <div class="my-5 flex gap-4 py-4 overflow-auto">
           <img
             src="https://via.placeholder.com/200"
@@ -105,7 +115,7 @@
             </svg>
             Upload
           </div>
-          <label for="my-modal-2" class="btn btn-secondary">Accept</label>
+          <label class="btn btn-secondary">Create Bucket</label>
           <label for="my-modal-2" class="btn">Close</label>
         </div>
       </div>

@@ -23,7 +23,7 @@
   ];
 </script>
 
-<div class="btn-group pt-5 flex">
+<div class="btn-group lg:pt-2.5 pt-5 flex">
   {#each reactionElements as reaction}
     <button
       on:click={() => {
