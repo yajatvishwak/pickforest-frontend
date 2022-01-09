@@ -4,6 +4,7 @@
   import { location } from "svelte-spa-router";
   const userID = $location.split("/")[1];
   const bucketID = $location.split("/")[2];
+  console.log(bucketID, userID);
   const isAdmin = true;
   let isReactionDrawerOpen = false;
   export let imgURL = "";
@@ -34,7 +35,7 @@
         </svg>
       </div>
 
-      <div class="carousel carousel-center rounded-box">
+      <div class="carousel carousel-center rounded-box ">
         <div class="carousel-item w-full">
           <img
             class={` h-96 shadow-lg w-full object-cover`}
@@ -42,14 +43,53 @@
             alt="dff"
           />
         </div>
-        <div class="carousel-item w-full bg-gray-100 ">
+        <div id="item2" class="carousel-item w-full bg-gray-100 ">
           <div class="flex flex-col w-full p-10 justify-center items-center">
             <div class="">
-              <img
-                src="./asset/heart.png"
-                class="w-1/2 mx-auto"
-                alt=""
-                srcset=""
+              <lord-icon
+                src="https://cdn.lordicon.com/lupuorrc.json"
+                trigger="hover"
+                colors="primary:#121331,secondary:#121331"
+                style="width:100px;height:100px;"
+              />
+            </div>
+            <div class="text-lg">10 votes</div>
+          </div>
+        </div>
+        <div id="item3" class="carousel-item w-full bg-yellow-100">
+          <div class="flex flex-col w-full p-10 justify-center items-center">
+            <div class="">
+              <lord-icon
+                src="https://cdn.lordicon.com/dzllstvg.json"
+                trigger="hover"
+                colors="primary:#121331,secondary:#121331"
+                style="width:100px;height:100px;"
+              />
+            </div>
+            <div class="text-lg">10 votes</div>
+          </div>
+        </div>
+        <div id="item3" class="carousel-item w-full bg-gray-100">
+          <div class="flex flex-col w-full p-10 justify-center items-center">
+            <div class="">
+              <lord-icon
+                src="https://cdn.lordicon.com/rjzlnunf.json"
+                trigger="hover"
+                colors="primary:#121331,secondary:#121331"
+                style="width:100px;height:100px;"
+              />
+            </div>
+            <div class="text-lg">10 votes</div>
+          </div>
+        </div>
+        <div id="item4" class="carousel-item w-full bg-yellow-100">
+          <div class="flex flex-col w-full p-10 justify-center items-center">
+            <div class="">
+              <lord-icon
+                src="https://cdn.lordicon.com/hrqwmuhr.json"
+                trigger="hover"
+                colors="primary:#121331,secondary:#121331"
+                style="width:100px;height:100px;"
               />
             </div>
             <div class="text-lg">10 votes</div>
