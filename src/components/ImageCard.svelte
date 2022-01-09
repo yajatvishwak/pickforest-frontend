@@ -42,8 +42,18 @@
             alt="dff"
           />
         </div>
-        <div class="carousel-item w-full bg-gray-400 ">
-          <div>This is broski</div>
+        <div class="carousel-item w-full bg-gray-100 ">
+          <div class="flex flex-col w-full p-10 justify-center items-center">
+            <div class="">
+              <img
+                src="./asset/heart.png"
+                class="w-1/2 mx-auto"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="text-lg">10 votes</div>
+          </div>
         </div>
       </div>
     </div>
