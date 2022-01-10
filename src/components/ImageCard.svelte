@@ -44,13 +44,13 @@
           />
         </div>
         <div class="flex-none w-full snapChild bg-indigo-100">
-          <div class="flex flex-col w-full h-full justify-center items-center">
+          <div class="flex  flex-col w-full h-full justify-center items-center">
             <div class="">
               <lord-icon
                 src="https://cdn.lordicon.com/lupuorrc.json"
                 trigger="hover"
                 colors="primary:#121331,secondary:#121331"
-                style="width:100px;height:100px;"
+                class=" w-14 h-14 lg:w-20 lg:h-20"
               />
             </div>
             <div class="text-lg">10 votes</div>
@@ -63,7 +63,7 @@
                 src="https://cdn.lordicon.com/dzllstvg.json"
                 trigger="hover"
                 colors="primary:#121331,secondary:#121331"
-                style="width:100px;height:100px;"
+                class=" w-14 h-14 lg:w-20 lg:h-20"
               />
             </div>
             <div class="text-lg">10 votes</div>
@@ -76,22 +76,23 @@
                 src="https://cdn.lordicon.com/rjzlnunf.json"
                 trigger="hover"
                 colors="primary:#121331,secondary:#121331"
-                style="width:100px;height:100px;"
+                class=" w-14 h-14 lg:w-20 lg:h-20"
               />
             </div>
             <div class="text-lg">10 votes</div>
           </div>
         </div>
         <div class="flex-none w-full snapChild bg-gray-100">
-          <div class="flex flex-col w-full h-full justify-center items-center">
+          <div class="flex flex-col h-full justify-center items-center">
             <div class="">
               <lord-icon
                 src="https://cdn.lordicon.com/hrqwmuhr.json"
                 trigger="hover"
                 colors="primary:#121331,secondary:#121331"
-                style="width:100px;height:100px;"
+                class=" w-14 h-14 lg:w-20 lg:h-20"
               />
             </div>
+
             <div class="text-lg">10 votes</div>
           </div>
         </div>

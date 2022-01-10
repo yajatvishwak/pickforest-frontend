@@ -11,15 +11,6 @@
     {
       imgURL: "https://picsum.photos/400",
     },
-    {
-      imgURL: "https://picsum.photos/400",
-    },
-    {
-      imgURL: "https://via.placeholder.com/400",
-    },
-    {
-      imgURL: "https://via.placeholder.com/400",
-    },
   ];
 </script>
 
