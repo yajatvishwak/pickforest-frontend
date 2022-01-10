@@ -35,16 +35,16 @@
         </svg>
       </div>
 
-      <div class="carousel carousel-center rounded-box ">
-        <div class="carousel-item w-full">
+      <div class="overflow-x-auto flex rounded-xl snap">
+        <div class="flex-none w-full snapChild">
           <img
-            class={` h-96 shadow-lg w-full object-cover`}
+            class={`h-96 w-full shadow-lg object-cover  `}
             src={imgURL}
             alt="dff"
           />
         </div>
-        <div id="item2" class="carousel-item w-full bg-gray-100 ">
-          <div class="flex flex-col w-full p-10 justify-center items-center">
+        <div class="flex-none w-full snapChild bg-indigo-100">
+          <div class="flex flex-col w-full h-full justify-center items-center">
             <div class="">
               <lord-icon
                 src="https://cdn.lordicon.com/lupuorrc.json"
@@ -56,8 +56,8 @@
             <div class="text-lg">10 votes</div>
           </div>
         </div>
-        <div id="item3" class="carousel-item w-full bg-yellow-100">
-          <div class="flex flex-col w-full p-10 justify-center items-center">
+        <div class="flex-none w-full snapChild bg-yellow-100">
+          <div class="flex flex-col w-full h-full justify-center items-center">
             <div class="">
               <lord-icon
                 src="https://cdn.lordicon.com/dzllstvg.json"
@@ -69,8 +69,8 @@
             <div class="text-lg">10 votes</div>
           </div>
         </div>
-        <div id="item3" class="carousel-item w-full bg-gray-100">
-          <div class="flex flex-col w-full p-10 justify-center items-center">
+        <div class="flex-none w-full snapChild bg-red-100">
+          <div class="flex flex-col w-full h-full justify-center items-center">
             <div class="">
               <lord-icon
                 src="https://cdn.lordicon.com/rjzlnunf.json"
@@ -82,8 +82,8 @@
             <div class="text-lg">10 votes</div>
           </div>
         </div>
-        <div id="item4" class="carousel-item w-full bg-yellow-100">
-          <div class="flex flex-col w-full p-10 justify-center items-center">
+        <div class="flex-none w-full snapChild bg-gray-100">
+          <div class="flex flex-col w-full h-full justify-center items-center">
             <div class="">
               <lord-icon
                 src="https://cdn.lordicon.com/hrqwmuhr.json"
@@ -203,5 +203,11 @@
   }
   .w-400 {
     width: 400px;
+  }
+  .snap {
+    scroll-snap-type: x mandatory;
+  }
+  .snapChild {
+    scroll-snap-align: start;
   }
 </style>
