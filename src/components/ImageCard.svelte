@@ -1,6 +1,5 @@
 <script>
   import ReactionBar from "./ReactionBar.svelte";
-
   import { location } from "svelte-spa-router";
   const userID = $location.split("/")[1];
   const bucketID = $location.split("/")[2];
