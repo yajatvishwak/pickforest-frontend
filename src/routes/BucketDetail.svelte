@@ -11,6 +11,7 @@
   //console.log(userID, bucketID);
   let data = {};
   fillData();
+  //
   function fillData() {
     // servercall
     const freshdatafromserver = {
@@ -22,7 +23,7 @@
       winnerImage: 1, // imageID
       imageCardDetails: [
         {
-          imageID: 1,
+          imageID: "imag1",
           imgURL: "https://picsum.photos/400",
           votes: {
             upvotes: 20,
@@ -34,9 +35,10 @@
             heart: 12,
             dislike: 314,
           },
+          voted: "notvoted",
         },
         {
-          imageID: 2,
+          imageID: "imag2",
           imgURL: "https://picsum.photos/400",
           votes: {
             upvotes: 20,
@@ -48,9 +50,10 @@
             heart: 12,
             dislike: 314,
           },
+          voted: "notvoted",
         },
         {
-          imageID: 3,
+          imageID: "imag3",
           imgURL: "https://picsum.photos/400",
           votes: {
             upvotes: 20,
@@ -62,16 +65,51 @@
             heart: 12,
             dislike: 314,
           },
+          voted: "notvoted",
         },
       ],
     };
     data = freshdatafromserver;
   }
   function upvote(imageID) {
-    fillData();
+    //console.log(imageID);
+    let item = data.imageCardDetails.find((x) => x.imageID === imageID);
+
+    if (item.voted === "notvoted") {
+      item.votes.upvotes += 1;
+      item.voted = "upvoted";
+      data.imageCardDetails = [...data.imageCardDetails];
+      // update on server
+    } else if (item.voted === "downvoted") {
+      item.votes.upvotes += 1;
+      item.votes.downvotes -= 1;
+      item.voted = "upvoted";
+      data.imageCardDetails = [...data.imageCardDetails];
+      // update on server
+    } else {
+      alert("Already voted, stop pressing random buttons you moron");
+    }
+
+    console.log(data.imageCardDetails);
   }
   function downvote(imageID) {
-    fillData();
+    //console.log(imageID);
+    let item = data.imageCardDetails.find((x) => x.imageID === imageID);
+
+    if (item.voted === "notvoted") {
+      item.votes.downvotes += 1;
+      item.voted = "downvoted";
+      data.imageCardDetails = [...data.imageCardDetails];
+      // update on server
+    } else if (item.voted === "upvoted") {
+      item.votes.upvotes -= 1;
+      item.votes.downvotes += 1;
+      item.voted = "downvoted";
+      data.imageCardDetails = [...data.imageCardDetails];
+      // update on server
+    } else {
+      alert("Already voted, stop pressing random buttons you moron");
+    }
   }
 </script>
 
@@ -105,6 +143,8 @@
           imgURL={ImageCardDetail.imgURL}
           reaction={ImageCardDetail.reactions}
           votes={ImageCardDetail.votes}
+          imageID={ImageCardDetail.imageID}
+          voted={ImageCardDetail.voted}
           {upvote}
           {downvote}
         />

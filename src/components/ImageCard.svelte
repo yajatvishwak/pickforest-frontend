@@ -13,6 +13,7 @@
   export let votes = { upvotes: 0, downvotes: 0 };
   export let upvote = () => {};
   export let downvote = () => {};
+  export let voted = "";
 </script>
 
 {#if isAdmin}
@@ -183,7 +184,9 @@
     <div class="flex gap-3 mt-2 mb-4">
       <div
         on:click={() => upvote(imageID)}
-        class="flex items-center hover:text-green-500  transition-all cursor-pointer"
+        class={`flex items-center hover:text-green-500 ${
+          voted === "upvoted" ? "text-green-500" : ""
+        }  transition-all cursor-pointer`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +207,9 @@
 
       <div
         on:click={() => downvote(imageID)}
-        class="flex items-center hover:text-red-500  transition-all cursor-pointer"
+        class={`flex items-center hover:text-red-500 ${
+          voted === "downvoted" ? "text-red-500" : ""
+        }  transition-all cursor-pointer`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
