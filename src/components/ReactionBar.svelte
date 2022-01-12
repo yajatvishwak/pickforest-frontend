@@ -13,7 +13,7 @@
     {
       src: "https://cdn.lordicon.com/rjzlnunf.json",
       selected: false,
-      id: "like",
+      id: "heart",
     },
     {
       src: "https://cdn.lordicon.com/hrqwmuhr.json",
@@ -21,6 +21,9 @@
       id: "dislike",
     },
   ];
+  export let updateSelectedReaction = () => {};
+  export let clearSelectedReaction = () => {};
+  export let imageID;
 </script>
 
 <div class="btn-group lg:pt-2.5 pt-5 flex">
@@ -28,8 +31,15 @@
     <button
       on:click={() => {
         reactionElements = reactionElements.map((item) => {
-          if (item.id === reaction.id)
+          if (item.id === reaction.id) {
+            if (!item.selected === false) {
+              clearSelectedReaction(imageID);
+            } else {
+              updateSelectedReaction(imageID, reaction.id);
+            }
             return { ...item, selected: !item.selected };
+          }
+
           return { ...item, selected: false };
         });
       }}
@@ -39,7 +49,6 @@
       ><lord-icon
         src={reaction.src}
         trigger="hover"
-        class={reaction.id === "like" ? "flip-horizontal" : ""}
         colors="primary:#121331,secondary:#121331"
         style="width:45px;height:45px;"
       /></button
