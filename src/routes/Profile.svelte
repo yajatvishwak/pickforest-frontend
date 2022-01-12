@@ -1,4 +1,6 @@
 <script>
+  import TreeCard from "../components/TreeCard.svelte";
+
   import DashboardCard from "../components/DashboardCard.svelte";
   import NavBar from "../components/NavBar.svelte";
 </script>
@@ -7,24 +9,6 @@
   <NavBar />
 
   <div class="relative flex-col flex justify-center items-center mt-10 lg:m-10">
-    <div
-      class="p-3 absolute z-10 top-2 right-3 rounded-2xl hover:bg-black hover:bg-opacity-50 "
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 text-white "
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-        />
-      </svg>
-    </div>
     <div class="w-full max-w-screen-lg  rounded-2xl lg:h-72 h-36  bg-primary">
       <img
         src="https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1"
@@ -48,7 +32,20 @@
     <div class="italic">this is bro</div>
   </div>
   <div class="flex flex-col justify-center items-center gap-4">
-    <div class="p-5 max-w-screen-lg w-full flex flex-col rounded-2xl border">
+    <div
+      class="p-5  lg:max-w-screen-lg w-full flex flex-col rounded-2xl border"
+    >
+      <div class="font-bold text-2xl mb-3 mt-2">Yajat Vishwakarma's Tree</div>
+      <div class="flex flex-col gap-4">
+        <TreeCard />
+        <TreeCard />
+        <TreeCard />
+        <TreeCard />
+      </div>
+    </div>
+
+    <div class="divider" />
+    <div class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border">
       <div class="font-bold text-2xl mb-3 mt-2">Change Password</div>
       <form>
         <input
@@ -106,6 +103,7 @@
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
   .monofont {
     font-family: "Roboto Mono", monospace;
   }
@@ -114,5 +112,8 @@
   }
   .newfont {
     font-family: "Harmattan", sans-serif;
+  }
+  .linkfont {
+    font-family: "Inter", sans-serif;
   }
 </style>
