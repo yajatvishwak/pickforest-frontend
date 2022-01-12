@@ -21,6 +21,9 @@
       id: "dislike",
     },
   ];
+  export let updateSelectedReaction = () => {};
+  export let clearSelectedReaction = () => {};
+  export let imageID;
 </script>
 
 <div class="btn-group lg:pt-2.5 pt-5 flex">
@@ -28,8 +31,15 @@
     <button
       on:click={() => {
         reactionElements = reactionElements.map((item) => {
-          if (item.id === reaction.id)
+          if (item.id === reaction.id) {
+            if (!item.selected === false) {
+              clearSelectedReaction(imageID);
+            } else {
+              updateSelectedReaction(imageID, reaction.id);
+            }
             return { ...item, selected: !item.selected };
+          }
+
           return { ...item, selected: false };
         });
       }}

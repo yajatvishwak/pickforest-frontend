@@ -20,7 +20,7 @@
       bucketName: "Bucket #1",
       userName: "Danny Boi",
       targetDate: "Jan 12, 2022",
-      winnerImage: 1, // imageID
+      winnerImage: "imag1", // imageID
       imageCardDetails: [
         {
           imageID: "imag1",
@@ -30,12 +30,13 @@
             downvotes: 30,
           },
           reactions: {
-            confetti: 34,
-            wow: 12,
-            heart: 12,
-            dislike: 314,
+            confetti: 0,
+            wow: 0,
+            heart: 0,
+            dislike: 0,
           },
           voted: "notvoted",
+          reacted: "notreacted",
         },
         {
           imageID: "imag2",
@@ -45,12 +46,13 @@
             downvotes: 30,
           },
           reactions: {
-            confetti: 34,
-            wow: 12,
-            heart: 12,
-            dislike: 314,
+            confetti: 0,
+            wow: 0,
+            heart: 0,
+            dislike: 0,
           },
           voted: "notvoted",
+          reacted: "notreacted",
         },
         {
           imageID: "imag3",
@@ -60,16 +62,18 @@
             downvotes: 30,
           },
           reactions: {
-            confetti: 34,
-            wow: 12,
-            heart: 12,
-            dislike: 314,
+            confetti: 0,
+            wow: 0,
+            heart: 0,
+            dislike: 0,
           },
           voted: "notvoted",
+          reacted: "notreacted",
         },
       ],
     };
     data = freshdatafromserver;
+    console.log(data.imageCardDetails);
   }
   function upvote(imageID) {
     //console.log(imageID);
@@ -95,7 +99,6 @@
   function downvote(imageID) {
     //console.log(imageID);
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
-
     if (item.voted === "notvoted") {
       item.votes.downvotes += 1;
       item.voted = "downvoted";
@@ -110,6 +113,27 @@
     } else {
       alert("Already voted, stop pressing random buttons you moron");
     }
+  }
+  function updateSelectedReaction(imageID, reaction) {
+    let item = data.imageCardDetails.find((x) => x.imageID === imageID);
+    if (item.reacted === "notreacted") {
+      item.reactions[reaction]++;
+      item.reacted = reaction;
+      //send to server
+    } else {
+      item.reactions[item.reacted]--;
+      item.reactions[reaction]++;
+      item.reacted = reaction;
+      // send to server
+    }
+    console.log(data.imageCardDetails);
+  }
+  function clearSelectedReaction(imageID) {
+    let item = data.imageCardDetails.find((x) => x.imageID === imageID);
+    item.reactions[item.reacted]--;
+    item.reacted = "notreacted";
+    // send to server
+    console.log(data.imageCardDetails);
   }
 </script>
 
@@ -147,6 +171,8 @@
           voted={ImageCardDetail.voted}
           {upvote}
           {downvote}
+          {updateSelectedReaction}
+          {clearSelectedReaction}
         />
       {/each}
     </div>

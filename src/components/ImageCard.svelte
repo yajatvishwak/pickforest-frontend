@@ -14,6 +14,8 @@
   export let upvote = () => {};
   export let downvote = () => {};
   export let voted = "";
+  export let updateSelectedReaction = () => {};
+  export let clearSelectedReaction = () => {};
 </script>
 
 {#if isAdmin}
@@ -250,7 +252,7 @@
       </div>
     </div>
     {#if isReactionDrawerOpen}
-      <ReactionBar />
+      <ReactionBar {updateSelectedReaction} {imageID} {clearSelectedReaction} />
     {/if}
   </div>
 {/if}
