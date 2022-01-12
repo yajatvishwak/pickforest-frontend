@@ -13,7 +13,7 @@
     {
       src: "https://cdn.lordicon.com/rjzlnunf.json",
       selected: false,
-      id: "like",
+      id: "heart",
     },
     {
       src: "https://cdn.lordicon.com/hrqwmuhr.json",
@@ -39,7 +39,6 @@
       ><lord-icon
         src={reaction.src}
         trigger="hover"
-        class={reaction.id === "like" ? "flip-horizontal" : ""}
         colors="primary:#121331,secondary:#121331"
         style="width:45px;height:45px;"
       /></button
