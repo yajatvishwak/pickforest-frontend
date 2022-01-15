@@ -1,13 +1,18 @@
 <script>
+  export let url = "";
+  export let title = "";
+  export let emoji = "";
+  export let treeID = "";
+  export let chooseTreeToEdit = () => {};
 </script>
 
 <div class="bg-gray-100 w-full p-3 rounded-2xl flex items-center ">
   <div
     class="md:text-xl lg:text-2xl mx-2 hover:bg-gray-300 transition-all cursor-pointer rounded-lg lg:p-3"
   >
-    👨‍💻
+    {emoji}
   </div>
-  <div class="md:text-xl  mx-2 linkfont font-medium">Github Playden</div>
+  <div class="md:text-xl  mx-2 linkfont font-medium">{title}</div>
   <div class="hidden md:text-xl md:block lg:text-2xl mx-2 linkfont font-medium">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +29,10 @@
       />
     </svg>
   </div>
-  <div class=" hidden md:block monofont truncate">
-    https://flaviocopes.com/svelte-reactive-assignments/
+  <div
+    class=" hidden md:block monofont truncate hover:underline cursor-pointer"
+  >
+    {url}
   </div>
 
   <div class="dropdown  dropdown-end  ml-auto">
@@ -35,7 +42,14 @@
       class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
     >
       <li class="">
-        <a href="/" class="hover:bg-yellow-300 transition-all flex gap-5">
+        <a
+          href=""
+          on:click={(e) => {
+            e.preventDefault();
+            chooseTreeToEdit(treeID);
+          }}
+          class="hover:bg-yellow-100  font-bold fontinter hover:text-yellow-500 transition-all flex gap-5"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-4 w-4"
@@ -50,11 +64,14 @@
               d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
             />
           </svg>
-          <div>Edit</div></a
-        >
+          <div>Edit</div>
+        </a>
       </li>
       <li class="">
-        <a href="/" class="hover:bg-red-300 transition-all flex gap-5">
+        <a
+          href="/"
+          class="hover:bg-red-300 hover:text-red-500 font-bold fontinter transition-all flex gap-5"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-4 w-4"

@@ -2,8 +2,77 @@
   import TreeCard from "../components/TreeCard.svelte";
 
   import DashboardCard from "../components/DashboardCard.svelte";
+  import EmojiSelector from "svelte-emoji-selector";
   import NavBar from "../components/NavBar.svelte";
+  let isModalOpen = false;
+  let data = {
+    trees: [
+      {
+        treeID: "treeid1",
+        url: "https://something.com",
+        title: "Github",
+        emoji: "⭐",
+      },
+      {
+        treeID: "treeid2",
+        url: "https://something.com",
+        title: "Pornhub",
+        emoji: "🍆",
+      },
+    ],
+  };
+  let editTree = {};
+
+  function chooseTreeToEdit(treeID) {
+    editTree = data.trees.find((x) => x.treeID === treeID);
+    isModalOpen = true;
+    console.log(editTreeID);
+  }
+  function onEmoji(event) {
+    editTree.emoji = event.detail;
+  }
 </script>
+
+<input
+  bind:checked={isModalOpen}
+  type="checkbox"
+  id="editTreeModal"
+  class="modal-toggle"
+/>
+<div class="modal">
+  <div class="modal-box">
+    <form class="flex flex-col gap-5">
+      <div class="flex gap-5">
+        <p class="text-2xl">{editTree.emoji}</p>
+        <div class="p-2 rounded-xl border">
+          <EmojiSelector on:emoji={onEmoji} />
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="">Display Title of the link</label>
+        <input
+          type="text"
+          class="p-3 bg-gray-200 rounded-xl"
+          placeholder="What's the new title?"
+          bind:value={editTree.title}
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="">Display Title of the link</label>
+        <input
+          type="text"
+          class="p-3 monofont bg-gray-200 rounded-xl"
+          placeholder="What's the new url?"
+          bind:value={editTree.url}
+        />
+      </div>
+    </form>
+    <div class="modal-action">
+      <label for="editTreeModal" class="btn btn-primary">Accept</label>
+      <label for="editTreeModal" class="btn">Close</label>
+    </div>
+  </div>
+</div>
 
 <section class=" h-screen flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
   <NavBar />
@@ -37,10 +106,15 @@
     >
       <div class="font-bold text-2xl mb-3 mt-2">Yajat Vishwakarma's Tree</div>
       <div class="flex flex-col gap-4">
-        <TreeCard />
-        <TreeCard />
-        <TreeCard />
-        <TreeCard />
+        {#each data.trees as tree}
+          <TreeCard
+            emoji={tree.emoji}
+            url={tree.url}
+            title={tree.title}
+            treeID={tree.treeID}
+            {chooseTreeToEdit}
+          />
+        {/each}
       </div>
     </div>
 
