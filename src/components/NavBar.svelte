@@ -1,8 +1,5 @@
 <script>
   import { push } from "svelte-spa-router";
-  function navigateToProfile() {
-    push("/profile");
-  }
 </script>
 
 <div class="navbar mb-2  shadow-lg bg-neutral text-neutral-content rounded-box">
@@ -99,28 +96,12 @@
             alt=""
           />
         </div>
-        <div class="modal-action hidden md:block">
-          <div class="btn  btn-primary flex items-center gap-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 16v1a3 3  0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-              />
-            </svg>
-            <span class="">Upload</span>
-          </div>
+        <div class="modal-action hidden  md:block">
+          <label class="btn btn-primary">Upload</label>
           <label class="btn btn-secondary">Create Bucket</label>
           <label for="my-modal-2" class="btn">Close</label>
         </div>
-        <div class="flex">
+        <div class="flex md:hidden">
           <div class="hover:text-yellow-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -173,10 +154,55 @@
       </div>
     </div>
 
-    <div on:click={navigateToProfile} class="avatar btn lg:pl-3 p-0 ">
-      <div class="mask mask-squircle w-10 h-10 ">
-        <img alt="pp" src="https://i.pravatar.cc/500?img=32" />
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" class="avatar btn lg:pl-3 p-0 ">
+        <div class="mask mask-squircle w-10 h-10 ">
+          <img alt="pp" src="https://i.pravatar.cc/500?img=32" />
+        </div>
       </div>
+      <ul
+        tabindex="0"
+        class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52 text-black mt-3"
+      >
+        <li>
+          <a href="/#/" class="flex items-center gap-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            <span>Dashboard</span></a
+          >
+        </li>
+        <li>
+          <a href="/#/profile" class="flex items-center gap-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              />
+            </svg>
+            <span>Profile</span></a
+          >
+        </li>
+      </ul>
     </div>
   </div>
 </div>

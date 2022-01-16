@@ -4,6 +4,11 @@
   import NavBar from "../components/NavBar.svelte";
   let isModalOpen = false;
   let data = {
+    name: "Danny Boiiii",
+    subname: "Ultra cool twitch streamer",
+    coverURL:
+      "https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1",
+    pfp: "http://daisyui.com/tailwind-css-component-profile-1@94w.png",
     trees: [
       {
         treeID: "treeid1",
@@ -77,16 +82,14 @@
   <div class="relative flex-col flex justify-center items-center mt-10 lg:m-10">
     <div class="w-full max-w-screen-lg  rounded-2xl lg:h-72 h-36  bg-primary">
       <img
-        src="https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1"
+        src={data.coverURL}
         alt=""
         class="h-full w-full object-cover rounded-2xl contrast-50 brightness-75"
       />
     </div>
     <div class="avatar absolute m-auto lg:-bottom-24 -bottom-20 ">
       <div class="mb-8 lg:w-32 lg:h-32 h-24 w-24 mask mask-squircle shadow-md">
-        <img
-          src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-        />
+        <img src={data.pfp} alt="profile pic" />
       </div>
     </div>
   </div>
@@ -94,15 +97,15 @@
   <div
     class="m-16 lg:mb-10 lg:mt-10  text-center flex justify-center flex-col items-center"
   >
-    <div class="font-black text-4xl">Yajat Vishwakarma</div>
-    <div class="italic">this is bro</div>
+    <div class="font-black text-4xl">{data.name}</div>
+    <div class="italic">{data.subname}</div>
   </div>
   <div class="flex flex-col justify-center items-center gap-4">
     <div
       class="p-5  lg:max-w-screen-lg w-full flex flex-col rounded-2xl border"
     >
       <div class="flex items-center">
-        <div class="font-bold text-2xl mb-3 mt-2">Yajat Vishwakarma's Tree</div>
+        <div class="font-bold text-2xl mb-3 mt-2">{data.name}'s Tree</div>
         <div
           class="ml-auto hover:text-yellow-700 hover:bg-yellow-100 p-2 rounded-xl cursor-pointer mb-2 transition flex gap-3 items-center"
         >
@@ -191,6 +194,7 @@
         <div class="btn">Change Username</div>
       </form>
     </div>
+    <div class="divider" />
   </div>
 </section>
 

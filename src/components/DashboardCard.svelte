@@ -1,6 +1,5 @@
 <script>
     import { push } from "svelte-spa-router";
-
     export let imageList = [];
     export let bucketID = "";
     export let userID = localStorage.getItem("userID");
