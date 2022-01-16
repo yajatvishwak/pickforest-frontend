@@ -1,11 +1,10 @@
 <script>
   import TreeCard from "../components/TreeCard.svelte";
-
-  import DashboardCard from "../components/DashboardCard.svelte";
   import EmojiSelector from "svelte-emoji-selector";
   import NavBar from "../components/NavBar.svelte";
   let isModalOpen = false;
   let data = {
+    name: "Yajat Vishwakarma",
     trees: [
       {
         treeID: "treeid1",
@@ -26,7 +25,6 @@
   function chooseTreeToEdit(treeID) {
     editTree = data.trees.find((x) => x.treeID === treeID);
     isModalOpen = true;
-    console.log(editTreeID);
   }
   function onEmoji(event) {
     editTree.emoji = event.detail;

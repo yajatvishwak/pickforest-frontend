@@ -62,7 +62,9 @@
     <input type="checkbox" id="my-modal-2" class="modal-toggle" />
     <div class="modal text-black">
       <div class="modal-box">
-        <div class="text-3xl font-bold">Create a Bucket</div>
+        <div class="md:text-2xl lg:text-3xl text-xl font-bold">
+          Create a Bucket
+        </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Bucket Name</span>
@@ -97,8 +99,8 @@
             alt=""
           />
         </div>
-        <div class="modal-action">
-          <div class="btn btn-primary flex items-center gap-4">
+        <div class="modal-action hidden md:block">
+          <div class="btn  btn-primary flex items-center gap-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -113,21 +115,67 @@
                 d="M4 16v1a3 3  0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
               />
             </svg>
-            Upload
+            <span class="">Upload</span>
           </div>
           <label class="btn btn-secondary">Create Bucket</label>
           <label for="my-modal-2" class="btn">Close</label>
+        </div>
+        <div class="flex">
+          <div class="hover:text-yellow-400">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16v1a3 3  0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+              />
+            </svg>
+          </div>
+          <div class="ml-auto mr-5 hover:text-green-400">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          </div>
+          <div class="hover:text-red-400">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
 
     <div on:click={navigateToProfile} class="avatar btn lg:pl-3 p-0 ">
       <div class="mask mask-squircle w-10 h-10 ">
-        <img
-          alt="pp
-        "
-          src="https://i.pravatar.cc/500?img=32"
-        />
+        <img alt="pp" src="https://i.pravatar.cc/500?img=32" />
       </div>
     </div>
   </div>

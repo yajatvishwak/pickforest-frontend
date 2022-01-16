@@ -101,7 +101,7 @@
         {/each}
       </div>
 
-      <!-- <div class="flex gap-3 mt-2 mb-4">
+      <div class="flex gap-3 mt-2 mb-4">
         <div
           class={`flex items-center hover:text-green-500 ${
             voted === "upvoted" ? "text-green-500" : ""
@@ -183,7 +183,7 @@
           {/if}
           {votes.upvotes - votes.downvotes}
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 {:else}
