@@ -1,10 +1,6 @@
 <script>
   import ReactionBar from "./ReactionBar.svelte";
-  import { location } from "svelte-spa-router";
-  const userID = $location.split("/")[1];
-  const bucketID = $location.split("/")[2];
-  console.log(bucketID, userID);
-  const isAdmin = false;
+  export let isAdmin = true; // server verifies
   let isReactionDrawerOpen = false;
   export let isWinner = false;
   export let imgURL = "";
@@ -124,6 +120,89 @@
 
             <div class="text-lg">{reaction.dislike} reactions</div>
           </div>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-2 mb-4">
+        <div
+          class={`flex items-center hover:text-green-500 ${
+            voted === "upvoted" ? "text-green-500" : ""
+          }  transition-all `}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 11l5-5m0 0l5 5m-5-5v12"
+            />
+          </svg>
+          <div>{votes.upvotes}</div>
+        </div>
+
+        <div
+          class={`flex items-center hover:text-red-500 ${
+            voted === "downvoted" ? "text-red-500" : ""
+          }  transition-all `}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 rotate-180 "
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M7 11l5-5m0 0l5 5m-5-5v12"
+            />
+          </svg>
+          <div>{votes.downvotes}</div>
+        </div>
+        <div
+          class={votes.upvotes - votes.downvotes >= 0
+            ? "ml-auto text-green-400 font-bold flex items-center gap-3"
+            : "ml-auto text-red-400 font-bold flex items-center gap-3"}
+        >
+          {#if votes.upvotes - votes.downvotes < 0}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+              />
+            </svg>
+          {:else}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+              />
+            </svg>
+          {/if}
+          {votes.upvotes - votes.downvotes}
         </div>
       </div>
     </div>

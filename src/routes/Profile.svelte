@@ -108,6 +108,7 @@
       <div class="flex flex-col gap-4">
         {#each data.trees as tree}
           <TreeCard
+            profileView={false}
             emoji={tree.emoji}
             url={tree.url}
             title={tree.title}

@@ -2,6 +2,7 @@ import Home from "./routes/Home.svelte";
 import Profile from "./routes/Profile.svelte"
 import NotFound from "./routes/NotFound.svelte";
 import BucketDetail from "./routes/BucketDetail.svelte";
+import TreeDetail from "./routes/TreeDetail.svelte";
 import SignUp from "./routes/SignUp.svelte";
 import SignIn from "./routes/SignIn.svelte";
 
@@ -10,6 +11,7 @@ const routes = {
   "/": Home,
   "/profile" : Profile,
   "/deets/:userid/:bucketid" : BucketDetail,
+  "/trees/:userid/" : TreeDetail,
   "/login": SignIn,
   "/signup": SignUp,
 

@@ -27,7 +27,9 @@
 
 {#if !authenticated}
   <section class="flex flex-col md:flex-row h-screen items-center">
-    <div class="bg-blue-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
+    <div
+      class="bg-yellow-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen"
+    >
       <img
         src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
         alt=""
@@ -86,7 +88,7 @@
               name="email"
               id="email"
               placeholder="Enter Email Address"
-              class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-yellow-500 focus:bg-white focus:outline-none"
               autocomplete
               required
               bind:value={email}
@@ -101,7 +103,7 @@
               id=""
               placeholder="Enter Password"
               minlength="6"
-              class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+              class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-yellow-500
                   focus:bg-white focus:outline-none"
               required
               bind:value={password}
@@ -111,14 +113,14 @@
           <div class="text-right mt-2">
             <a
               href="#"
-              class="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700"
+              class="text-sm font-semibold text-gray-700 hover:text-yellow-700 focus:text-yellow-700"
               >Forgot Password?</a
             >
           </div>
 
           <button
             type="submit"
-            class="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
+            class="w-full block bg-yellow-500 hover:bg-yellow-400 focus:bg-yellow-400 text-white font-semibold rounded-lg
                 px-4 py-3 mt-6">Log In</button
           >
         </form>
@@ -167,7 +169,7 @@
         <p class="mt-8">
           Need an account? <a
             href="/signup"
-            class="text-blue-500 hover:text-blue-700 font-semibold"
+            class="text-yellow-500 hover:text-yellow-700 font-semibold"
             >Create an account</a
           >
         </p>

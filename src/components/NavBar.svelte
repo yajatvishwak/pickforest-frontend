@@ -45,7 +45,7 @@
   <div class="flex-none">
     <label
       for="my-modal-2"
-      class="btn btn-primary modal-button mx-4 bg-primary hover:bg-primary-focus p-3 rounded-2xlz"
+      class="btn btn-primary modal-button mx-4 bg-primary hover:bg-primary-focus p-3 rounded-2xl"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5 "

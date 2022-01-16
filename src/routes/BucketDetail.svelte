@@ -1,32 +1,30 @@
 <script>
+  export let params = {};
   import CountDown from "../components/CountDown.svelte";
-
   import ImageCard from "../components/ImageCard.svelte";
   import NavBar from "../components/NavBar.svelte";
 
-  import { location } from "svelte-spa-router";
-
-  const userID = $location.split("/")[1];
-  const bucketID = $location.split("/")[2];
+  const userID = params.userid;
+  const bucketID = params.bucketid;
   //console.log(userID, bucketID);
   let data = {};
   fillData();
-  //
   function fillData() {
     // servercall
     const freshdatafromserver = {
       bucketID: "bucketID",
       userID: "userID",
+      isAdmin: true,
       bucketName: "Bucket #1",
       userName: "Danny Boi",
-      targetDate: "Jan 12, 2022",
+      targetDate: "Jan 14, 2022",
       winnerImage: "imag1", // imageID
       imageCardDetails: [
         {
           imageID: "imag1",
           imgURL: "https://picsum.photos/400",
           votes: {
-            upvotes: 20,
+            upvotes: 50,
             downvotes: 30,
           },
           reactions: {
@@ -140,7 +138,7 @@
 <section class=" h-screen flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
   <NavBar />
   <div class="mx-auto">
-    <div class="flex justify-between lg:items-center lg:flex-row flex-col ">
+    <div class="flex  justify-between lg:items-center lg:flex-row flex-col ">
       <div>
         <div class="text-4xl mt-10 font-bold">{data.bucketName}</div>
         <div class="flex items-center gap-5 mt-3 ">
@@ -168,6 +166,7 @@
           reaction={ImageCardDetail.reactions}
           votes={ImageCardDetail.votes}
           imageID={ImageCardDetail.imageID}
+          isAdmin={data.isAdmin}
           voted={ImageCardDetail.voted}
           {upvote}
           {downvote}

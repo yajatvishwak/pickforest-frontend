@@ -17,4 +17,20 @@
   * {
     font-family: "Gilroy-Regular", sans-serif;
   }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #797979;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #ffc400d3;
+  }
 </style>
