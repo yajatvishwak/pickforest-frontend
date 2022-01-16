@@ -6,7 +6,7 @@
 </script>
 
 <div class="navbar mb-2  shadow-lg bg-neutral text-neutral-content rounded-box">
-  <div class="flex-1  px-1 mx-1 flex">
+  <div class="flex-1 px-1 mx-1 flex">
     <div class="mx-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -78,16 +78,16 @@
         <div class="my-5 flex gap-4 py-4 overflow-auto">
           <img
             src="https://via.placeholder.com/200"
-            class="  rounded-2xl flex-1"
+            class="rounded-2xl flex-1"
             alt=""
           />
           <img
             src="https://via.placeholder.com/200"
-            class="  rounded-2xl flex-1"
+            class="rounded-2xl flex-1"
             alt=""
           /><img
             src="https://via.placeholder.com/200"
-            class="  rounded-2xl flex-1"
+            class="rounded-2xl flex-1"
             alt=""
           /><img
             src="https://via.placeholder.com/200"
@@ -153,7 +153,7 @@
               />
             </svg>
           </div>
-          <div class="hover:text-red-400">
+          <label for="my-modal-2" class=" hover:text-red-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -168,7 +168,7 @@
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          </div>
+          </label>
         </div>
       </div>
     </div>

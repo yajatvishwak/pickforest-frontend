@@ -4,7 +4,6 @@
   import NavBar from "../components/NavBar.svelte";
   let isModalOpen = false;
   let data = {
-    name: "Yajat Vishwakarma",
     trees: [
       {
         treeID: "treeid1",
@@ -102,7 +101,28 @@
     <div
       class="p-5  lg:max-w-screen-lg w-full flex flex-col rounded-2xl border"
     >
-      <div class="font-bold text-2xl mb-3 mt-2">Yajat Vishwakarma's Tree</div>
+      <div class="flex items-center">
+        <div class="font-bold text-2xl mb-3 mt-2">Yajat Vishwakarma's Tree</div>
+        <div
+          class="ml-auto hover:text-yellow-700 hover:bg-yellow-100 p-2 rounded-xl cursor-pointer mb-2 transition flex gap-3 items-center"
+        >
+          <div>Preview</div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        </div>
+      </div>
       <div class="flex flex-col gap-4">
         {#each data.trees as tree}
           <TreeCard
