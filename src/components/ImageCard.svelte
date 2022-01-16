@@ -12,6 +12,22 @@
   export let voted = "";
   export let updateSelectedReaction = () => {};
   export let clearSelectedReaction = () => {};
+
+  let reactionElements = [
+    "https://cdn.lordicon.com/lupuorrc.json",
+
+    "https://cdn.lordicon.com/dzllstvg.json",
+
+    "https://cdn.lordicon.com/rjzlnunf.json",
+
+    "https://cdn.lordicon.com/hrqwmuhr.json",
+  ];
+  let reactionback = [
+    "bg-indigo-100",
+    "bg-yellow-100",
+    "bg-red-100",
+    "bg-gray-100",
+  ];
 </script>
 
 {#if isAdmin}
@@ -61,68 +77,31 @@
         </div>
       {/if}
       <div class="overflow-x-auto flex rounded-xl snap">
-        <div class="flex-none w-full snapChild">
+        <div class="flex-none w-full min-w-0 snapChild">
           <img
-            class={`h-96 w-full shadow-lg object-cover  `}
+            class={`h-96 w-full  shadow-lg object-cover  `}
             src={imgURL}
             alt="dff"
           />
         </div>
-        <div class="flex-none w-full snapChild bg-indigo-100">
-          <div class="flex  flex-col w-full h-full justify-center items-center">
-            <div class="">
+        {#each Object.keys(reaction) as r, index}
+          <div
+            class={`flex-none flex w-full ${reactionback[index]}  snapChild`}
+          >
+            <div class="flex items-center justify-center flex-col  w-full ">
               <lord-icon
-                src="https://cdn.lordicon.com/lupuorrc.json"
+                src={reactionElements[index]}
                 trigger="hover"
                 colors="primary:#121331,secondary:#121331"
                 class=" w-14 h-14 lg:w-20 lg:h-20"
               />
+              <div>{reaction[r]} reactions</div>
             </div>
-            <div class="text-lg">{reaction.confetti} reactions</div>
           </div>
-        </div>
-        <div class="flex-none w-full snapChild bg-yellow-100">
-          <div class="flex flex-col w-full h-full justify-center items-center">
-            <div class="">
-              <lord-icon
-                src="https://cdn.lordicon.com/dzllstvg.json"
-                trigger="hover"
-                colors="primary:#121331,secondary:#121331"
-                class=" w-14 h-14 lg:w-20 lg:h-20"
-              />
-            </div>
-            <div class="text-lg">{reaction.wow} reactions</div>
-          </div>
-        </div>
-        <div class="flex-none w-full snapChild bg-red-100">
-          <div class="flex flex-col w-full h-full justify-center items-center">
-            <div class="">
-              <lord-icon
-                src="https://cdn.lordicon.com/rjzlnunf.json"
-                trigger="hover"
-                colors="primary:#121331,secondary:#121331"
-                class=" w-14 h-14 lg:w-20 lg:h-20"
-              />
-            </div>
-            <div class="text-lg">{reaction.heart} reactions</div>
-          </div>
-        </div>
-        <div class="flex-none w-full snapChild bg-gray-100">
-          <div class="flex flex-col h-full justify-center items-center">
-            <div class="">
-              <lord-icon
-                src="https://cdn.lordicon.com/hrqwmuhr.json"
-                trigger="hover"
-                colors="primary:#121331,secondary:#121331"
-                class=" w-14 h-14 lg:w-20 lg:h-20"
-              />
-            </div>
-
-            <div class="text-lg">{reaction.dislike} reactions</div>
-          </div>
-        </div>
+        {/each}
       </div>
-      <div class="flex gap-3 mt-2 mb-4">
+
+      <!-- <div class="flex gap-3 mt-2 mb-4">
         <div
           class={`flex items-center hover:text-green-500 ${
             voted === "upvoted" ? "text-green-500" : ""
@@ -204,7 +183,7 @@
           {/if}
           {votes.upvotes - votes.downvotes}
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 {:else}

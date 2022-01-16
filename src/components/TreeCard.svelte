@@ -7,13 +7,19 @@
   export let chooseTreeToEdit = () => {};
 </script>
 
-<div class="bg-gray-100 w-full p-3 rounded-2xl flex items-center ">
-  <div
-    class="md:text-xl lg:text-2xl mx-2 hover:bg-gray-300 transition-all cursor-pointer rounded-lg lg:p-3"
-  >
-    {emoji}
+<div
+  class="bg-gray-100 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center "
+>
+  <div class="flex justify-center items-center w-full lg:w-min gap-2">
+    <div
+      class="text-lg md:text-xl   lg:text-2xl  hover:bg-gray-300 transition-all cursor-pointer rounded-lg lg:p-3 py-4"
+    >
+      {emoji}
+    </div>
+    <div class="md:text-xl text-lg  linkfont font-medium">
+      {title}
+    </div>
   </div>
-  <div class="md:text-xl  mx-2 linkfont font-medium">{title}</div>
 
   {#if !profileView}
     <div
