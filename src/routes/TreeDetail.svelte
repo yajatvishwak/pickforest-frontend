@@ -1,11 +1,12 @@
 <script>
     import TreeCard from "../components/TreeCard.svelte";
 
-    import DashboardCard from "../components/DashboardCard.svelte";
-    import EmojiSelector from "svelte-emoji-selector";
-
-    let isModalOpen = false;
     let data = {
+        name: "Danny Boiiii",
+        subname: "Ultra cool twitch streamer",
+        coverURL:
+            "https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1",
+        pfp: "http://daisyui.com/tailwind-css-component-profile-1@94w.png",
         trees: [
             {
                 treeID: "treeid1",
@@ -21,16 +22,6 @@
             },
         ],
     };
-    let editTree = {};
-
-    function chooseTreeToEdit(treeID) {
-        editTree = data.trees.find((x) => x.treeID === treeID);
-        isModalOpen = true;
-        console.log(editTreeID);
-    }
-    function onEmoji(event) {
-        editTree.emoji = event.detail;
-    }
 </script>
 
 <section class=" h-screen flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
@@ -77,18 +68,16 @@
             class="w-full max-w-screen-lg  rounded-2xl lg:h-72 h-36  bg-primary"
         >
             <img
-                src="https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1"
+                src={data.coverURL}
                 alt=""
                 class="h-full w-full object-cover rounded-2xl contrast-50 brightness-75"
             />
         </div>
-        <div class="avatar absolute m-auto lg:-bottom-24 -bottom-20 ">
+        <div class="avatar absolute m-auto lg:-bottom-24 -bottom-20  ">
             <div
-                class="mb-8 lg:w-32 lg:h-32 h-24 w-24 mask mask-squircle shadow-md"
+                class="mb-8 lg:w-32 lg:h-32 h-24 w-24 mask mask-squircle shadow-xl"
             >
-                <img
-                    src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-                />
+                <img src={data.pfp} alt="profilepic" />
             </div>
         </div>
     </div>
@@ -96,12 +85,12 @@
     <div
         class="m-16 mb-10 lg:mb-10 lg:mt-10  text-center flex justify-center flex-col items-center"
     >
-        <div class="font-black text-4xl">Yajat Vishwakarma</div>
-        <div class="italic">this is bro</div>
+        <div class="font-black text-4xl">{data.name}</div>
+        <div class="italic">{data.subname}</div>
     </div>
     <div class="flex flex-col justify-center items-center gap-4">
         <div class="p-5  lg:max-w-screen-lg w-full flex flex-col rounded-2xl ">
-            <div class="font-bold text-2xl mb-3 ">Yajat Vishwakarma's Tree</div>
+            <div class="font-bold text-2xl mb-3 ">{data.name}'s Tree</div>
             <div class="flex flex-col gap-4">
                 {#each data.trees as tree}
                     <TreeCard
@@ -110,14 +99,13 @@
                         url={tree.url}
                         title={tree.title}
                         treeID={tree.treeID}
-                        {chooseTreeToEdit}
                     />
                 {/each}
             </div>
         </div>
         <div class="divider" />
         <div
-            class="flex rounded-3xl p-5 mb-10  py-7 lg:max-w-screen-lg w-full bg-yellow-200"
+            class="flex rounded-3xl p-5 mb-10  py-7 lg:max-w-screen-lg w-full shadow-xl bg-yellow-200"
         >
             <div class="p-5 bg-yellow-200 rounded-2xl mx-auto  max-w-prose">
                 <div class="text-2xl mb-3 font-bold">

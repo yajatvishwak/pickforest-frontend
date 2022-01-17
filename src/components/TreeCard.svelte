@@ -8,11 +8,18 @@
 </script>
 
 <div
-  class="bg-gray-100 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center "
+  on:click={() => {
+    window.location.href = url;
+  }}
+  class="bg-gray-100 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center cursor-pointer "
 >
-  <div class="flex justify-center items-center w-full lg:w-min gap-2">
+  <div
+    class={`flex justify-center items-center ${
+      profileView ? "w-full" : ""
+    }   gap-2`}
+  >
     <div
-      class="text-lg md:text-xl   lg:text-2xl  hover:bg-gray-300 transition-all cursor-pointer rounded-lg lg:p-3 py-4"
+      class="text-lg md:text-xl   lg:text-2xl   transition-all cursor-pointer rounded-lg lg:p-3 py-4"
     >
       {emoji}
     </div>

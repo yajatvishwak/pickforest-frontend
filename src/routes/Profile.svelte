@@ -2,6 +2,8 @@
   import TreeCard from "../components/TreeCard.svelte";
   import EmojiSelector from "svelte-emoji-selector";
   import NavBar from "../components/NavBar.svelte";
+  import { push } from "svelte-spa-router";
+  const userID = localStorage.getItem("userID");
   let isModalOpen = false;
   let data = {
     name: "Danny Boiiii",
@@ -19,7 +21,7 @@
       {
         treeID: "treeid2",
         url: "https://something.com",
-        title: "Pornhub",
+        title: "Pronhub",
         emoji: "🍆",
       },
     ],
@@ -109,7 +111,13 @@
         <div
           class="ml-auto hover:text-yellow-700 hover:bg-yellow-100 p-2 rounded-xl cursor-pointer mb-2 transition flex gap-3 items-center"
         >
-          <div>Preview</div>
+          <div
+            on:click={() => {
+              push("/trees/" + userID);
+            }}
+          >
+            Preview
+          </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -141,59 +149,76 @@
     </div>
 
     <div class="divider" />
+    <div class="divider" />
+    <div
+      class="text-2xl font-bold  text-left w-full max-w-screen-lg flex items-center gap-5"
+    >
+      ⚙️
+      {data.name}'s Control Room
+    </div>
     <div class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border">
       <div class="font-bold text-2xl mb-3 mt-2">Change Password</div>
       <form>
         <input
           type="text"
-          class="bg-gray-100 w-full p-3 my-2 rounded-2xl"
+          class="bg-gray-100 w-full p-3 my-2 rounded-xl"
           placeholder="Password"
         />
         <input
           type="text"
-          class="bg-gray-100 w-full p-3 my-2 rounded-2xl"
+          class="bg-gray-100 w-full p-3 my-2 rounded-xl"
           placeholder="New Password"
         />
         <input
           type="text"
-          class="bg-gray-100 w-full p-3  my-2 rounded-2xl"
+          class="bg-gray-100 w-full p-3  my-2 rounded-xl"
           placeholder="New Password Again"
         />
-        <div class="btn mt-4">Change Username</div>
+        <div class="btn mt-4">Change Password</div>
       </form>
     </div>
-    <div class="p-5 max-w-screen-lg w-full rounded-2xl border h-fit">
-      <div class="font-bold text-2xl mb-3 mt-2">Change Username</div>
-      <form>
-        <div class="flex flex-wrap items-center my-5">
-          <div class="lg:text-xl monofont">https://pickforest.com/</div>
+
+    <div class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border">
+      <div class="font-bold text-2xl mb-3 mt-2">Change Other Deets</div>
+      <form class="flex flex-col gap-5">
+        <div>
+          <label for="">Display Name</label>
           <input
             type="text"
-            class="bg-gray-100 ml-3 p-3 my-2 rounded-2xl"
+            class="bg-gray-100 w-full p-3 my-2 rounded-xl"
             placeholder="Password"
           />
-          <div
-            class="lg:ml-2 mt-2 lg:mt-0 p-2 bg-green-300 rounded-md text-green-700"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+        </div>
+        <div>
+          <label for="">Display Subname</label>
+          <input
+            type="text"
+            class="bg-gray-100 w-full p-3 my-2 rounded-xl"
+            placeholder="New Password"
+          />
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="">Profile Picture</label>
+          <input type="file" id="pfp" hidden />
+          <div class="flex gap-10 items-center">
+            <div class="avatar">
+              <div class=" w-24 h-24 mask mask-squircle">
+                <img
+                  src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
+                />
+              </div>
+            </div>
+            <label
+              for="pfp"
+              class="border flex-1 p-5 rounded-2xl text-center font-bold hover:bg-yellow-100  hover:text-yellow-700 hover:border-yellow-100 transition-all"
+              >Choose your next Awesome PFP</label
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
           </div>
         </div>
-        <div class="btn">Change Username</div>
+        <div class="btn w-fit mt-4">💾 Save</div>
       </form>
     </div>
+
     <div class="divider" />
   </div>
 </section>
@@ -206,6 +231,9 @@
   }
   .h-fit {
     height: fit-content;
+  }
+  .w-fit {
+    width: fit-content;
   }
   .newfont {
     font-family: "Harmattan", sans-serif;

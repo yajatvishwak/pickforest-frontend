@@ -1,24 +1,30 @@
 <script>
+  import JSConfetti from "js-confetti";
+  const jsConfetti = new JSConfetti();
   export let reactionElements = [
     {
       src: "https://cdn.lordicon.com/lupuorrc.json",
       selected: false,
       id: "confetti",
+      emoji: ["🎉"],
     },
     {
       src: "https://cdn.lordicon.com/dzllstvg.json",
       selected: false,
       id: "wow",
+      emoji: ["😍"],
     },
     {
       src: "https://cdn.lordicon.com/rjzlnunf.json",
       selected: false,
       id: "heart",
+      emoji: ["❤️"],
     },
     {
       src: "https://cdn.lordicon.com/hrqwmuhr.json",
       selected: false,
       id: "dislike",
+      emoji: ["👎"],
     },
   ];
   export let updateSelectedReaction = () => {};
@@ -35,6 +41,9 @@
             if (!item.selected === false) {
               clearSelectedReaction(imageID);
             } else {
+              jsConfetti.addConfetti({
+                emojis: reaction.emoji,
+              });
               updateSelectedReaction(imageID, reaction.id);
             }
             return { ...item, selected: !item.selected };

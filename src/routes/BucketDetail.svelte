@@ -14,10 +14,10 @@
     const freshdatafromserver = {
       bucketID: "bucketID",
       userID: "userID",
-      isAdmin: true,
+      isAdmin: false,
       bucketName: "Bucket #1",
       userName: "Danny Boi",
-      targetDate: "Jan 14, 2022",
+      targetDate: "Jan 17, 2022",
       winnerImage: "imag1", // imageID
       imageCardDetails: [
         {
@@ -89,7 +89,10 @@
       data.imageCardDetails = [...data.imageCardDetails];
       // update on server
     } else {
-      alert("Already voted, stop pressing random buttons you moron");
+      item.votes.upvotes -= 1;
+      item.voted = "notvoted";
+      data.imageCardDetails = [...data.imageCardDetails];
+      //alert("Already voted, stop pressing random buttons you moron");
     }
 
     console.log(data.imageCardDetails);
@@ -109,7 +112,10 @@
       data.imageCardDetails = [...data.imageCardDetails];
       // update on server
     } else {
-      alert("Already voted, stop pressing random buttons you moron");
+      item.votes.downvotes -= 1;
+      item.voted = "notvoted";
+      data.imageCardDetails = [...data.imageCardDetails];
+      //alert("Already voted, stop pressing random buttons you moron");
     }
   }
   function updateSelectedReaction(imageID, reaction) {
