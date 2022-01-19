@@ -2,6 +2,7 @@
   import TreeCard from "../components/TreeCard.svelte";
   import EmojiSelector from "svelte-emoji-selector";
   import NavBar from "../components/NavBar.svelte";
+  import Footer from "../components/Footer.svelte";
   import { push } from "svelte-spa-router";
   const userID = localStorage.getItem("userID");
   let isModalOpen = false;
@@ -220,6 +221,9 @@
     </div>
 
     <div class="divider" />
+    <div class="max-w-screen-lg w-full">
+      <Footer />
+    </div>
   </div>
 </section>
 

@@ -1,9 +1,58 @@
 <script>
   import { push } from "svelte-spa-router";
+
+  let dragText = "Drop your awesome pictures here!";
+  let files = [];
+
+  let fileLoc = [];
+  const getImage = async (file) => {
+    let image = file;
+    let reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = (e) => {
+      fileLoc.push(e.target.result);
+      fileLoc = [...fileLoc];
+    };
+  };
+
+  function dropHandler(ev) {
+    console.log("File(s) dropped");
+    dragText = "Cool! Got that! Are there more?";
+
+    // Prevent default behavior (Prevent file from being opened)
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    if (ev.dataTransfer.items) {
+      // Use DataTransferItemList interface to access the file(s)
+      for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+        // If dropped items aren't files, reject them
+        if (ev.dataTransfer.items[i].kind === "file") {
+          var file = ev.dataTransfer.items[i].getAsFile();
+          files.push(file);
+          getImage(file);
+          //console.log("... file[" + i + "].name = " + file.name);
+        }
+      }
+    } else {
+      // Use DataTransfer interface to access the file(s)
+      for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+        files.push(file);
+        getImage(file);
+        //console.log(fileLoc);
+      }
+    }
+    console.log(fileLoc);
+  }
 </script>
 
 <div class="navbar mb-2  shadow-lg bg-neutral text-neutral-content rounded-box">
-  <div class="flex-1 px-1 mx-1 flex">
+  <div
+    class="flex-1 px-1 mx-1 flex cursor-pointer"
+    on:click={() => {
+      push("/");
+    }}
+  >
     <div class="mx-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -72,8 +121,53 @@
             class="input input-bordered"
           />
         </div>
+        <div
+          on:mouseenter={() => (dragText = "Click me to add your pictures")}
+          on:mouseleave={() => (dragText = "Drop your awesome pictures here!")}
+          class="bg-yellow-100 w-full p-10  rounded-lg my-3"
+        >
+          <input
+            type="file"
+            name=""
+            id="uploadbroski"
+            hidden
+            multiple
+            on:change={(e) => {
+              console.log(e.target.files);
+              files = Array.from(e.target.files).map((file) => {
+                getImage(file);
+                return file;
+              });
+              files = [...files];
+            }}
+          />
+          <label
+            for="uploadbroski"
+            on:drop={dropHandler}
+            on:dragleave={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              dragText = "Drop your awesome pictures here!";
+            }}
+            on:dragover={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              dragText = "Drop em here pleaseeee";
+            }}
+          >
+            <p>{dragText}</p>
+          </label>
+        </div>
         <div class="my-5 flex gap-4 py-4 overflow-auto">
-          <img
+          {#each fileLoc as file}
+            <img
+              src={file}
+              class="h-52 object-cover shadow-lg rounded-2xl w-full max-w-52"
+              alt=""
+              srcset=""
+            />
+          {/each}
+          <!-- <img
             src="https://via.placeholder.com/200"
             class="rounded-2xl flex-1"
             alt=""
@@ -94,10 +188,9 @@
             src="https://via.placeholder.com/200"
             class="  rounded-2xl flex-1"
             alt=""
-          />
+          /> -->
         </div>
         <div class="modal-action hidden  md:block">
-          <label class="btn btn-primary">Upload</label>
           <label class="btn btn-secondary">Create Bucket</label>
           <label for="my-modal-2" class="btn">Close</label>
         </div>

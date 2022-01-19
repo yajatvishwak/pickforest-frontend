@@ -1,5 +1,6 @@
 <script>
     import TreeCard from "../components/TreeCard.svelte";
+    import Footer from "../components/Footer.svelte";
 
     let data = {
         name: "Danny Boiiii",
@@ -118,6 +119,9 @@
                 </div>
                 <div class="btn">Broooooooooo show bro</div>
             </div>
+        </div>
+        <div class="w-full max-w-screen-lg">
+            <Footer />
         </div>
     </div>
 </section>
