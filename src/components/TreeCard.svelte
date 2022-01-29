@@ -9,9 +9,9 @@
 
 <div
   on:click={() => {
-    window.location.href = url;
+    if (profileView) window.location.href = url;
   }}
-  class="bg-gray-100 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center cursor-pointer "
+  class="bg-gray-100 dark:bg-slate-700 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center cursor-pointer "
 >
   <div
     class={`flex justify-center items-center ${
@@ -48,6 +48,9 @@
       </svg>
     </div>
     <div
+      on:click={() => {
+        window.location.href = url;
+      }}
       class=" hidden md:block monofont truncate hover:underline cursor-pointer"
     >
       {url}

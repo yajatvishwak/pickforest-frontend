@@ -1,6 +1,5 @@
 <script>
     import DashboardCard from "../components/DashboardCard.svelte";
-
     import NavBar from "../components/NavBar.svelte";
     import greetingTime from "greeting-time";
     const emojis = ["🚀", "⚡", "✨"];
@@ -19,10 +18,9 @@
     };
 </script>
 
-<section class=" h-screen flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
+<section class="h-full w-full flex  flex-col p-5 pt-2.5 lg:p-10 lg:pt-5">
     <NavBar />
-
-    <div class="text-4xl  mt-10">
+    <div class="text-4xl mt-10">
         {greetingTime(new Date())}
         <span class="font-bold">Danny Boi</span>
         {emojis[parseInt(Math.random() * emojis.length)]}
@@ -48,7 +46,7 @@
                 <div class="newfont text-center lg:text-left">Most likes</div>
             </div>
         </div>
-        <div class="p-5 bg-yellow-200 rounded-2xl  lg:w-1/3">
+        <div class="p-5 bg-yellow-200 rounded-2xl  lg:w-1/3 text-black">
             <div class="text-2xl mb-3 font-bold">
                 Hmmm... what's pickforest bro?
             </div>
@@ -61,7 +59,7 @@
         </div>
     </div>
 
-    <div class="mt-10 mb-4 text-2xl  max-w-screen-lgfont-bold ">
+    <div class="mt-10 mb-4 text-2xl max-w-screen-lgfont-bold ">
         Your Buckets
     </div>
     <div class="grid lg:grid-cols-3  gap-4 ">
@@ -75,25 +73,46 @@
         {/each}
         <label
             for="my-modal-2"
-            class="w-full modal-button hover:scale-95 transition-all rounded-box font-bold bg-gray-100 h-56 flex flex-col justify-center items-center"
+            class="w-full modal-button hover:scale-95 transition-all rounded-box font-bold dark:bg-slate-800 bg-gray-100 h-56 flex flex-col justify-center items-center"
         >
-            <lord-icon
-                src="https://cdn.lordicon.com/mecwbjnp.json"
-                trigger="hover"
-                colors="primary:#121331,secondary:#000000"
-                style="width:100px;height:100px"
-            />
+            <div class="dark:block hidden">
+                <lord-icon
+                    src="https://cdn.lordicon.com/mecwbjnp.json"
+                    trigger="hover"
+                    colors="primary:#ffffff,secondary:#ffffff"
+                    style="width:100px;height:100px"
+                />
+            </div>
+            <div class="dark:hidden">
+                <lord-icon
+                    src="https://cdn.lordicon.com/mecwbjnp.json"
+                    trigger="hover"
+                    colors="primary:#121331,secondary:#000000"
+                    style="width:100px;height:100px"
+                />
+            </div>
+
             <div>Add Bucket</div>
         </label>
         <div
-            class="w-full hover:scale-95 transition-all rounded-box font-bold bg-gray-100 h-56 flex flex-col justify-center items-center"
+            class="w-full hover:scale-95 transition-all rounded-box font-bold dark:bg-slate-800 bg-gray-100 h-56 flex flex-col justify-center items-center"
         >
-            <lord-icon
-                src="https://cdn.lordicon.com/dxjqoygy.json"
-                trigger="hover"
-                colors="primary:#121331,secondary:#000000"
-                style="width:100px;height:100px"
-            />
+            <div class="dark:block hidden">
+                <lord-icon
+                    src="https://cdn.lordicon.com/dxjqoygy.json"
+                    trigger="hover"
+                    colors="primary:#ffffff,secondary:#ffffff"
+                    style="width:100px;height:100px"
+                />
+            </div>
+            <div class="dark:hidden">
+                <lord-icon
+                    src="https://cdn.lordicon.com/dxjqoygy.json"
+                    trigger="hover"
+                    colors="primary:#121331,secondary:#000000"
+                    style="width:100px;height:100px"
+                />
+            </div>
             <div>New here?</div>
         </div>
         {#if data.bucketDetails.length < 1}

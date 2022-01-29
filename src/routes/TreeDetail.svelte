@@ -25,7 +25,7 @@
     };
 </script>
 
-<section class=" h-screen flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
+<section class=" h-full  flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
     <div class=" px-1  mx-auto flex items-center">
         <div class="mx-2">
             <svg
@@ -109,10 +109,10 @@
             class="flex rounded-3xl p-5 mb-10  py-7 lg:max-w-screen-lg w-full shadow-xl bg-yellow-200"
         >
             <div class="p-5 bg-yellow-200 rounded-2xl mx-auto  max-w-prose">
-                <div class="text-2xl mb-3 font-bold">
+                <div class="text-2xl mb-3 font-bold text-black">
                     Hmmm... what's pickforest bro?
                 </div>
-                <div class="opacity-50 mb-5 newfont">
+                <div class="opacity-50 mb-5 newfont text-black">
                     Have you been in a situation where you are tryna post
                     something on your social account but you are in distress as
                     to which of the 178 pictures to post? (Trust me, been there)

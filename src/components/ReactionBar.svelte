@@ -32,7 +32,7 @@
   export let imageID;
 </script>
 
-<div class="btn-group lg:pt-2.5 pt-5 flex">
+<div class="btn-group lg:pt-2.5 pt-5 flex  ">
   {#each reactionElements as reaction}
     <button
       on:click={() => {
@@ -52,16 +52,27 @@
           return { ...item, selected: false };
         });
       }}
-      class={`btn hover:bg-yellow-200 btn-outline flex-1   ${
+      class={`btn hover:bg-yellow-200 dark:hover:bg-slate-700 btn-outline dark:border-white flex-1   ${
         reaction.selected ? `btn-active` : ``
       }`}
-      ><lord-icon
-        src={reaction.src}
-        trigger="hover"
-        colors="primary:#121331,secondary:#121331"
-        style="width:45px;height:45px;"
-      /></button
     >
+      <div class="dark:block hidden">
+        <lord-icon
+          src={reaction.src}
+          trigger="hover"
+          colors="primary:#FCD34D,secondary:#ffffff"
+          style="width:45px;height:45px;"
+        />
+      </div>
+      <div class="dark:hidden">
+        <lord-icon
+          src={reaction.src}
+          trigger="hover"
+          colors="primary:#121331,secondary:#121331"
+          style="width:45px;height:45px;"
+        />
+      </div>
+    </button>
   {/each}
 </div>
 

@@ -46,7 +46,9 @@
   }
 </script>
 
-<div class="navbar mb-2  shadow-lg bg-neutral text-neutral-content rounded-box">
+<div
+  class="navbar mb-2 dark:bg-slate-800  shadow-lg bg-neutral text-neutral-content rounded-box"
+>
   <div
     class="flex-1 px-1 mx-1 flex cursor-pointer"
     on:click={() => {
@@ -88,7 +90,7 @@
     <span class=" font-bold text-primary"> PickForest </span>
   </div>
 
-  <div class="flex-none">
+  <div class="flex-none ">
     <label
       for="my-modal-2"
       class="btn btn-primary modal-button mx-4 bg-primary hover:bg-primary-focus p-3 rounded-2xl"
@@ -106,25 +108,25 @@
       </svg></label
     >
     <input type="checkbox" id="my-modal-2" class="modal-toggle" />
-    <div class="modal text-black">
-      <div class="modal-box">
+    <div class="modal text-black bg-gray-900 bg-opacity-70 ">
+      <div class="modal-box dark:bg-gray-800 dark:text-white">
         <div class="md:text-2xl lg:text-3xl text-xl font-bold">
           Create a Bucket
         </div>
         <div class="form-control">
           <label class="label">
-            <span class="label-text">Bucket Name</span>
+            <span class="">Bucket Name</span>
           </label>
           <input
             type="text"
             placeholder="Super Aweesome Bucket"
-            class="input input-bordered"
+            class="input input-bordered dark:bg-slate-700"
           />
         </div>
         <div
           on:mouseenter={() => (dragText = "Click me to add your pictures")}
           on:mouseleave={() => (dragText = "Drop your awesome pictures here!")}
-          class="bg-yellow-100 w-full p-10  rounded-lg my-3"
+          class="bg-yellow-100 dark:bg-slate-900 text-center w-full p-10  rounded-lg my-3"
         >
           <input
             type="file"
@@ -155,7 +157,7 @@
               dragText = "Drop em here pleaseeee";
             }}
           >
-            <p>{dragText}</p>
+            <p class="">{dragText}</p>
           </label>
         </div>
         <div class="my-5 flex gap-4 py-4 overflow-auto">
@@ -247,15 +249,15 @@
       </div>
     </div>
 
-    <div class="dropdown dropdown-end">
-      <div tabindex="0" class="avatar btn lg:pl-3 p-0 ">
+    <div class="dropdown dropdown-end ">
+      <div tabindex="0" class="avatar btn lg:pl-3 p-0 dark:bg-slate-800">
         <div class="mask mask-squircle w-10 h-10 ">
           <img alt="pp" src="https://i.pravatar.cc/500?img=32" />
         </div>
       </div>
       <ul
         tabindex="0"
-        class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52 text-black mt-3"
+        class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52 text-black mt-3 dark:bg-slate-700 dark:text-white "
       >
         <li>
           <a href="/#/" class="flex items-center gap-5">

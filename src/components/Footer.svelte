@@ -1,7 +1,7 @@
-<div class="mb-10 w-full p-10 rounded-2xl bg-gray-100 ">
+<div class="mb-10 w-full p-10 rounded-2xl bg-gray-100  dark:bg-slate-800">
     <div class="flex items-center">
         <div class="flex-1 px-1 mx-1 flex cursor-pointer items-center">
-            <div class="mx-2">
+            <div class="mx-2 ">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
@@ -9,7 +9,7 @@
                     width="30"
                     height="30"
                     viewBox="0 0 172 172"
-                    style=" fill:   #CC6666;"
+                    style=" fill:#CC6666;"
                     ><g
                         fill="none"
                         fill-rule="nonzero"
@@ -38,7 +38,7 @@
                 PickForest
             </span>
         </div>
-        <div class="ml-auto ">
+        <div class="ml-auto dark:bg-slate-300 rounded-lg ">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 x="0px"

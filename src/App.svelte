@@ -4,9 +4,7 @@
   //export let name;
 </script>
 
-<body>
-  <Router {routes} />
-</body>
+<Router {routes} />
 
 <style lang="postcss" global>
   @tailwind base;
@@ -16,6 +14,12 @@
   @import url("https://fonts.googleapis.com/css2?family=Harmattan:wght@400;700&display=swap");
   * {
     font-family: "Gilroy-Regular", sans-serif;
+  }
+  body {
+    @apply dark:bg-slate-900 dark:text-white;
+    height: 100%;
+    width: 100%;
+    display: inline-table;
   }
   ::-webkit-scrollbar {
     width: 10px;

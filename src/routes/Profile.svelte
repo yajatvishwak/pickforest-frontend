@@ -4,6 +4,7 @@
   import NavBar from "../components/NavBar.svelte";
   import Footer from "../components/Footer.svelte";
   import { push } from "svelte-spa-router";
+  import { darkmode } from "../darkmode";
   const userID = localStorage.getItem("userID");
   let isModalOpen = false;
   let data = {
@@ -79,7 +80,7 @@
   </div>
 </div>
 
-<section class=" h-screen flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
+<section class=" h-full flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
   <NavBar />
 
   <div class="relative flex-col flex justify-center items-center mt-10 lg:m-10">
@@ -105,7 +106,7 @@
   </div>
   <div class="flex flex-col justify-center items-center gap-4">
     <div
-      class="p-5  lg:max-w-screen-lg w-full flex flex-col rounded-2xl border"
+      class="p-5  lg:max-w-screen-lg w-full flex flex-col rounded-2xl border dark:border-slate-500 "
     >
       <div class="flex items-center">
         <div class="font-bold text-2xl mb-3 mt-2">{data.name}'s Tree</div>
@@ -157,36 +158,53 @@
       ⚙️
       {data.name}'s Control Room
     </div>
-    <div class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border">
+    <div
+      class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border dark:border-slate-500"
+    >
+      <div class="font-bold text-2xl mb-3 mt-2">
+        {$darkmode
+          ? "Dark Mode - activated - xtreme eye protecc 😎"
+          : "Dark Mode - protecc eyes 👀 "}
+      </div>
+      <input type="checkbox" class="toggle" bind:checked={$darkmode} />
+    </div>
+    <div
+      class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border dark:border-slate-500"
+    >
       <div class="font-bold text-2xl mb-3 mt-2">Change Password</div>
       <form>
-        <input
-          type="text"
-          class="bg-gray-100 w-full p-3 my-2 rounded-xl"
-          placeholder="Password"
-        />
-        <input
-          type="text"
-          class="bg-gray-100 w-full p-3 my-2 rounded-xl"
-          placeholder="New Password"
-        />
-        <input
-          type="text"
-          class="bg-gray-100 w-full p-3  my-2 rounded-xl"
-          placeholder="New Password Again"
-        />
-        <div class="btn mt-4">Change Password</div>
+        <div>
+          <label for="">Current Password</label>
+          <input
+            type="text"
+            class="bg-gray-100 dark:bg-slate-800 w-full p-3 my-2 rounded-xl"
+            placeholder="ultrasafepassword"
+          />
+        </div>
+        <div>
+          <label for="">New Password</label>
+          <input
+            type="text"
+            class="bg-gray-100 dark:bg-slate-800 w-full p-3 my-2 rounded-xl"
+            placeholder="ultrasafepasswordagain"
+          />
+        </div>
+        <div class="btn mt-4 dark:bg-yellow-200 dark:text-black">
+          Change Password
+        </div>
       </form>
     </div>
 
-    <div class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border">
+    <div
+      class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border dark:border-slate-500"
+    >
       <div class="font-bold text-2xl mb-3 mt-2">Change Other Deets</div>
       <form class="flex flex-col gap-5">
         <div>
           <label for="">Display Name</label>
           <input
             type="text"
-            class="bg-gray-100 w-full p-3 my-2 rounded-xl"
+            class="bg-gray-100 dark:bg-slate-800 w-full  p-3 my-2 rounded-xl"
             placeholder="Password"
           />
         </div>
@@ -194,7 +212,7 @@
           <label for="">Display Subname</label>
           <input
             type="text"
-            class="bg-gray-100 w-full p-3 my-2 rounded-xl"
+            class="bg-gray-100 dark:bg-slate-800 w-full p-3 my-2 rounded-xl"
             placeholder="New Password"
           />
         </div>
@@ -216,7 +234,9 @@
             >
           </div>
         </div>
-        <div class="btn w-fit mt-4">💾 Save</div>
+        <div class="btn w-fit mt-4 dark:bg-yellow-200 dark:text-black">
+          💾 Save
+        </div>
       </form>
     </div>
 

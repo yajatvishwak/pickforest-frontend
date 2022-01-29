@@ -12,6 +12,7 @@
   export let voted = "";
   export let updateSelectedReaction = () => {};
   export let clearSelectedReaction = () => {};
+  let loading = true;
 
   let reactionElements = [
     "https://cdn.lordicon.com/lupuorrc.json",
@@ -31,7 +32,7 @@
 </script>
 
 {#if isAdmin}
-  <div class="relative">
+  <div class="relative ">
     <div class="max-w-lg">
       <div
         on:click={() => {
@@ -76,12 +77,13 @@
           </div>
         </div>
       {/if}
-      <div class="overflow-x-auto flex rounded-xl snap">
-        <div class="flex-none w-full min-w-0 snapChild">
+      <div class="overflow-x-auto shadow-2xl flex rounded-xl snap">
+        <div class="flex-none  w-full min-w-0 snapChild">
           <img
-            class={`h-96 w-full  shadow-lg object-cover  `}
+            class={`h-96 w-full object-cover  `}
             src={imgURL}
             alt="dff"
+            loading="lazy"
           />
         </div>
         {#each Object.keys(reaction) as r, index}
@@ -234,6 +236,7 @@
           </div>
         {/if}
         <img
+          loading="lazy"
           class={`rounded-xl h-96 shadow-lg w-full object-cover`}
           src={imgURL}
           alt="dff"
@@ -327,5 +330,21 @@
   }
   .snapChild {
     scroll-snap-align: start;
+  }
+  .loader {
+    border: 16px solid #b1a500; /* Light grey */
+    border-top: 16px solid #ffde21; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1.5s linear infinite;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 </style>

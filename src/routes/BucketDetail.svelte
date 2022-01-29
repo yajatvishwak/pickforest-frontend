@@ -141,7 +141,7 @@
   }
 </script>
 
-<section class=" h-screen flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
+<section class=" h-full  w-full flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
   <NavBar />
   <div class="mx-auto">
     <div class="flex  justify-between lg:items-center lg:flex-row flex-col ">
