@@ -1,5 +1,6 @@
 <script>
   import ReactionBar from "./ReactionBar.svelte";
+  import Skeleton from "./Skeleton.svelte";
   export let isAdmin = true; // server verifies
   let isReactionDrawerOpen = false;
   export let isWinner = false;
@@ -31,7 +32,23 @@
   ];
 </script>
 
-{#if isAdmin}
+{#if loading}
+  <div
+    class="h-96 w-96 max-h-72 max-w-72 rounded-2xl gap-3 dark:bg-slate-700 flex items-center justify-center"
+  >
+    <Skeleton />
+    <div class="mt-3">loading, have some tea</div>
+    <img
+      class="hidden"
+      on:load={() => {
+        loading = false;
+      }}
+      src="https://picsum.photos/400"
+      alt=""
+      srcset=""
+    />
+  </div>
+{:else if isAdmin}
   <div class="relative ">
     <div class="max-w-lg">
       <div
@@ -79,12 +96,7 @@
       {/if}
       <div class="overflow-x-auto shadow-2xl flex rounded-xl snap">
         <div class="flex-none  w-full min-w-0 snapChild">
-          <img
-            class={`h-96 w-full object-cover  `}
-            src={imgURL}
-            alt="dff"
-            loading="lazy"
-          />
+          <img class={`h-96 w-full object-cover  `} src={imgURL} alt="dff" />
         </div>
         {#each Object.keys(reaction) as r, index}
           <div
@@ -236,7 +248,6 @@
           </div>
         {/if}
         <img
-          loading="lazy"
           class={`rounded-xl h-96 shadow-lg w-full object-cover`}
           src={imgURL}
           alt="dff"
