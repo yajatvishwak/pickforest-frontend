@@ -1,6 +1,6 @@
 <script>
   import { push } from "svelte-spa-router";
-
+  import { darkmode } from "../darkmode";
   let dragText = "Drop your awesome pictures here!";
   let files = [];
 
@@ -90,7 +90,7 @@
     <span class=" font-bold text-primary"> PickForest </span>
   </div>
 
-  <div class="flex-none ">
+  <div class="flex-none">
     <label
       for="my-modal-2"
       class="btn btn-primary modal-button mx-4 bg-primary hover:bg-primary-focus p-3 rounded-2xl"
@@ -296,6 +296,28 @@
             </svg>
             <span>Profile</span></a
           >
+        </li>
+        <li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a class="flex  gap-5">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            <div>
+              <input type="checkbox" class="toggle" bind:checked={$darkmode} />
+            </div>
+          </a>
         </li>
       </ul>
     </div>
