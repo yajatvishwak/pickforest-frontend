@@ -53,7 +53,7 @@
         });
       }}
       class={`btn hover:bg-yellow-200 dark:hover:bg-slate-700 btn-outline dark:border-white flex-1   ${
-        reaction.selected ? `btn-active` : ``
+        reaction.selected ? `btn-active dark:bg-slate-700` : ``
       }`}
     >
       <div class="dark:block hidden">
