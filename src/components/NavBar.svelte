@@ -1,9 +1,13 @@
 <script>
   import { push } from "svelte-spa-router";
   import { darkmode } from "../darkmode";
+  import CustomDateSelector from "./CustomDateSelector.svelte";
+  import TimeSelector from "./TimeSelector.svelte";
   let dragText = "Drop your awesome pictures here!";
+  let timeslots = ["1hr", "2hr", "3hr", "5hr"];
+  let selectedTime = "1hr";
   let files = [];
-
+  let customTimeMode = false;
   let fileLoc = [];
   const getImage = async (file) => {
     let image = file;
@@ -122,11 +126,54 @@
             placeholder="Super Aweesome Bucket"
             class="input input-bordered dark:bg-slate-700"
           />
+          <label class="label flex justify-between mt-4">
+            <div class="">Set Bucket Voting Time</div>
+            <!-- <input
+              type="checkbox"
+              bind:checked={customTimeMode}
+              class="toggle"
+              id=""
+            /> -->
+          </label>
+          <div class="">
+            {#if customTimeMode}
+              <!-- <div class="text-black  date">
+                <CustomDateSelector />
+              </div> -->
+              <div />
+            {:else}
+              <TimeSelector bind:timeslots bind:selectedTime />
+              <div class="alert dark:bg-slate-700 mt-4">
+                <div class="">
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="#2196f3"
+                      class="w-6 h-6 mx-2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <label
+                    ><i>Bucket Voting Time </i> is the time for which this bucket
+                    will be open for voting to all the people who have this link.
+                  </label>
+                </div>
+              </div>
+            {/if}
+          </div>
         </div>
         <div
           on:mouseenter={() => (dragText = "Click me to add your pictures")}
           on:mouseleave={() => (dragText = "Drop your awesome pictures here!")}
-          class="bg-yellow-100 dark:bg-slate-900 text-center w-full p-10  rounded-lg my-3"
+          class="bg-yellow-100 hidden h-1/4  lg:block dark:bg-slate-900 text-center w-full p-10  rounded-lg my-3"
         >
           <input
             type="file"
@@ -145,6 +192,7 @@
           />
           <label
             for="uploadbroski"
+            class="flex h-full items-center justify-center"
             on:drop={dropHandler}
             on:dragleave={(e) => {
               e.preventDefault();
@@ -196,8 +244,9 @@
           <label class="btn btn-secondary">Create Bucket</label>
           <label for="my-modal-2" class="btn">Close</label>
         </div>
+
         <div class="flex md:hidden">
-          <div class="hover:text-yellow-400">
+          <label for="uploadbroski" class="hover:text-yellow-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -212,7 +261,7 @@
                 d="M4 16v1a3 3  0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
               />
             </svg>
-          </div>
+          </label>
           <div class="ml-auto mr-5 hover:text-green-400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
