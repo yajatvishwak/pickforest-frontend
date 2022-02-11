@@ -7,6 +7,7 @@
   export let imgURL = "";
   export let reaction = {};
   export let imageID = "";
+  export let reactionID = "";
   export let votes = { upvotes: 0, downvotes: 0 };
   export let upvote = () => {};
   export let downvote = () => {};
@@ -14,6 +15,7 @@
   export let updateSelectedReaction = () => {};
   export let clearSelectedReaction = () => {};
   let loading = true;
+  console.log("logging from image card", reactionID);
 
   let reactionElements = [
     "https://cdn.lordicon.com/lupuorrc.json",
@@ -324,7 +326,12 @@
       </div>
     </div>
     {#if isReactionDrawerOpen}
-      <ReactionBar {updateSelectedReaction} {imageID} {clearSelectedReaction} />
+      <ReactionBar
+        {updateSelectedReaction}
+        {imageID}
+        {reactionID}
+        {clearSelectedReaction}
+      />
     {/if}
   </div>
 {/if}

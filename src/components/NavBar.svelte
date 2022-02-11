@@ -1,7 +1,7 @@
 <script>
   import { push } from "svelte-spa-router";
   import { darkmode } from "../darkmode";
-  import CustomDateSelector from "./CustomDateSelector.svelte";
+  //import CustomDateSelector from "./CustomDateSelector.svelte";
   import TimeSelector from "./TimeSelector.svelte";
   let dragText = "Drop your awesome pictures here!";
   let timeslots = ["1hr", "2hr", "3hr", "5hr"];
@@ -217,28 +217,6 @@
               srcset=""
             />
           {/each}
-          <!-- <img
-            src="https://via.placeholder.com/200"
-            class="rounded-2xl flex-1"
-            alt=""
-          />
-          <img
-            src="https://via.placeholder.com/200"
-            class="rounded-2xl flex-1"
-            alt=""
-          /><img
-            src="https://via.placeholder.com/200"
-            class="rounded-2xl flex-1"
-            alt=""
-          /><img
-            src="https://via.placeholder.com/200"
-            class="  rounded-2xl flex-1"
-            alt=""
-          /><img
-            src="https://via.placeholder.com/200"
-            class="  rounded-2xl flex-1"
-            alt=""
-          /> -->
         </div>
         <div class="modal-action hidden  md:block">
           <label class="btn btn-secondary">Create Bucket</label>
@@ -262,7 +240,10 @@
               />
             </svg>
           </label>
-          <div class="ml-auto mr-5 hover:text-green-400">
+          <div
+            on:click={() => console.log(selectedTime)}
+            class="ml-auto mr-5 hover:text-green-400"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"

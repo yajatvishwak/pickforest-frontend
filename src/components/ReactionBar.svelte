@@ -1,7 +1,8 @@
 <script>
   import JSConfetti from "js-confetti";
   const jsConfetti = new JSConfetti();
-  export let reactionElements = [
+  export let reactionID = "";
+  let reactionElements = [
     {
       src: "https://cdn.lordicon.com/lupuorrc.json",
       selected: false,
@@ -27,6 +28,12 @@
       emoji: ["👎"],
     },
   ];
+
+  console.log("bro", reactionID, reactionElements);
+  $: reactionElements = reactionElements.map((item) => {
+    if (item.id === reactionID) return { ...item, selected: true };
+    return { ...item, selected: false };
+  });
   export let updateSelectedReaction = () => {};
   export let clearSelectedReaction = () => {};
   export let imageID;

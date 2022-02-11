@@ -123,21 +123,23 @@
     if (item.reacted === "notreacted") {
       item.reactions[reaction]++;
       item.reacted = reaction;
+      data.imageCardDetails = [...data.imageCardDetails];
       //send to server
     } else {
       item.reactions[item.reacted]--;
       item.reactions[reaction]++;
       item.reacted = reaction;
+      data.imageCardDetails = [...data.imageCardDetails];
       // send to server
     }
-    console.log(data.imageCardDetails);
+    console.log("updating", data.imageCardDetails);
   }
   function clearSelectedReaction(imageID) {
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
     item.reactions[item.reacted]--;
     item.reacted = "notreacted";
     // send to server
-    console.log(data.imageCardDetails);
+    console.log("clearing", data.imageCardDetails);
   }
 </script>
 
@@ -174,6 +176,7 @@
           imageID={ImageCardDetail.imageID}
           isAdmin={data.isAdmin}
           voted={ImageCardDetail.voted}
+          bind:reactionID={ImageCardDetail.reacted}
           {upvote}
           {downvote}
           {updateSelectedReaction}
