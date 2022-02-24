@@ -4,6 +4,8 @@
     import greetingTime from "greeting-time";
     import { Splide, SplideSlide } from "@splidejs/svelte-splide";
     import OnboardingSlideShow from "./OnboardingSlideShow.svelte";
+    import JSConfetti from "js-confetti";
+    const jsConfetti = new JSConfetti();
 
     const emojis = ["🚀", "⚡", "✨"];
 
@@ -24,12 +26,18 @@
 
 <input type="checkbox" checked={true} id="my-modal3" class="modal-toggle" />
 <div class="modal ">
-    <div class="modal-box dark:bg-slate-700 ">
-        <div class="h-1/3 rounded">
+    <div class="modal-box dark:bg-slate-700  ">
+        <div class="h-1/2 md:h-1/3 rounded">
             <OnboardingSlideShow />
         </div>
-        <div class="modal-action">
-            <label for="my-modal3" class="btn">Yay!</label>
+        <div class="modal-action ">
+            <label
+                on:click={() => {
+                    jsConfetti.addConfetti();
+                }}
+                for="my-modal3"
+                class="btn mt-5">Yay! Got it!</label
+            >
         </div>
     </div>
 </div>
