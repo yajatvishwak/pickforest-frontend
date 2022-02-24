@@ -5,6 +5,7 @@
   export let treeID = "";
   export let profileView;
   export let chooseTreeToEdit = () => {};
+  console.log("Tree111");
 </script>
 
 <div
@@ -59,7 +60,7 @@
       <div tabindex="0" class="m-1 btn">Edit</div>
       <ul
         tabindex="0"
-        class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52"
+        class="p-2 shadow menu dropdown-content bg-base-100  dark:bg-slate-800 rounded-box w-52"
       >
         <li class="">
           <a

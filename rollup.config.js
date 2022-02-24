@@ -31,6 +31,10 @@ function serve() {
 
 export default {
 	input: 'src/main.js',
+	watch:{
+		chokidar : false 
+	},
+
 	output: {
 		sourcemap: true,
 		format: 'iife',

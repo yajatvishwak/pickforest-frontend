@@ -45,8 +45,8 @@
   id="editTreeModal"
   class="modal-toggle"
 />
-<div class="modal">
-  <div class="modal-box">
+<div class="modal ">
+  <div class="modal-box dark:bg-slate-700">
     <form class="flex flex-col gap-5">
       <div class="flex gap-5">
         <p class="text-2xl">{editTree.emoji}</p>
@@ -58,7 +58,7 @@
         <label for="">Display Title of the link</label>
         <input
           type="text"
-          class="p-3 bg-gray-200 rounded-xl"
+          class="p-3 bg-gray-200 dark:bg-slate-600 rounded-xl"
           placeholder="What's the new title?"
           bind:value={editTree.title}
         />
@@ -67,7 +67,7 @@
         <label for="">Display Title of the link</label>
         <input
           type="text"
-          class="p-3 monofont bg-gray-200 rounded-xl"
+          class="p-3 monofont bg-gray-200 dark:bg-slate-600 rounded-xl"
           placeholder="What's the new url?"
           bind:value={editTree.url}
         />

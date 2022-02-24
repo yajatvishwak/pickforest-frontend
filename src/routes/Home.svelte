@@ -2,7 +2,11 @@
     import DashboardCard from "../components/DashboardCard.svelte";
     import NavBar from "../components/NavBar.svelte";
     import greetingTime from "greeting-time";
+    import { Splide, SplideSlide } from "@splidejs/svelte-splide";
+    import OnboardingSlideShow from "./OnboardingSlideShow.svelte";
+
     const emojis = ["🚀", "⚡", "✨"];
+
     const data = {
         noOfBuckets: 12,
         noOfVotes: 123,
@@ -18,6 +22,18 @@
     };
 </script>
 
+<input type="checkbox" checked={true} id="my-modal3" class="modal-toggle" />
+<div class="modal ">
+    <div class="modal-box dark:bg-slate-700 ">
+        <div class="h-1/3 rounded">
+            <OnboardingSlideShow />
+        </div>
+        <div class="modal-action">
+            <label for="my-modal3" class="btn">Yay!</label>
+        </div>
+    </div>
+</div>
+
 <section class="h-full w-full flex  flex-col p-5 pt-2.5 lg:p-10 lg:pt-5">
     <NavBar />
     <div class="text-4xl mt-10">
@@ -26,7 +42,7 @@
         {emojis[parseInt(Math.random() * emojis.length)]}
     </div>
     <div class="mt-10 flex-col flex lg:flex-row justify-between">
-        <div class="flex flex-wrap justify-center lg:justify-start ">
+        <div id="stats" class="flex flex-wrap justify-center lg:justify-start ">
             <div class="p-5 lg:m-5 bg-yellow-2000 rounded-2xl">
                 <div class="newfont text-8xl font-bold text-yellow-500">
                     {data.noOfBuckets}
@@ -46,6 +62,7 @@
                 <div class="newfont text-center lg:text-left">Most likes</div>
             </div>
         </div>
+
         <div class="p-5 bg-yellow-200 rounded-2xl  lg:w-1/3 text-black">
             <div class="text-2xl mb-3 font-bold">
                 Hmmm... what's pickforest bro?
@@ -55,7 +72,7 @@
                 on your social account but you are in distress as to which of
                 the 178 pictures to post? (Trust me, been there)
             </div>
-            <div class="btn">Broooooooooo show bro</div>
+            <label for="my-modal3" class="btn modal-button">Take a Tour</label>
         </div>
     </div>
 
