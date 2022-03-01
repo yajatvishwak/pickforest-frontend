@@ -7,6 +7,7 @@
   import { darkmode } from "../darkmode";
   const userID = localStorage.getItem("userID");
   let isModalOpen = false;
+
   let data = {
     name: "Danny Boiiii",
     subname: "Ultra cool twitch streamer",
@@ -36,6 +37,26 @@
   }
   function onEmoji(event) {
     editTree.emoji = event.detail;
+  }
+  function handleBanner(e) {
+    let image = e.target.files[0];
+    //console.log(image);
+    let reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = (e) => {
+      data = { ...data, coverURL: e.target.result };
+      //console.log(previewImage);
+    };
+  }
+  function handleProfile(e) {
+    let image = e.target.files[0];
+    //console.log(image);
+    let reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = (e) => {
+      data = { ...data, pfp: e.target.result };
+      //console.log(previewImage);
+    };
   }
 </script>
 
@@ -205,7 +226,7 @@
           <input
             type="text"
             class="bg-gray-100 dark:bg-slate-800 w-full  p-3 my-2 rounded-xl"
-            placeholder="Password"
+            placeholder={data.name}
           />
         </div>
         <div>
@@ -213,24 +234,55 @@
           <input
             type="text"
             class="bg-gray-100 dark:bg-slate-800 w-full p-3 my-2 rounded-xl"
-            placeholder="New Password"
+            placeholder={data.subname}
           />
         </div>
         <div class="flex flex-col gap-2">
           <label for="">Profile Picture</label>
-          <input type="file" id="pfp" hidden />
+          <input
+            on:change={handleProfile}
+            accept="image/*"
+            type="file"
+            id="pfp"
+            hidden
+          />
           <div class="flex gap-10 items-center">
             <div class="avatar">
               <div class=" w-24 h-24 mask mask-squircle">
-                <img
-                  src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-                />
+                <!-- svelte-ignore a11y-missing-attribute -->
+                <img src={data.pfp} />
               </div>
             </div>
             <label
               for="pfp"
               class="border flex-1 p-5 rounded-2xl text-center font-bold hover:bg-yellow-100  hover:text-yellow-700 hover:border-yellow-100 transition-all"
               >Choose your next Awesome PFP</label
+            >
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <label for="">Banner Picture</label>
+          <input
+            on:change={handleBanner}
+            accept="image/*"
+            type="file"
+            id="banner"
+            hidden
+          />
+          <div class="flex gap-5 items-center flex-col">
+            <div
+              class="w-full max-w-screen-lg  rounded-2xl lg:h-72 h-36  bg-primary"
+            >
+              <img
+                src={data.coverURL}
+                alt=""
+                class="h-full w-full object-cover rounded-2xl contrast-50 brightness-75"
+              />
+            </div>
+            <label
+              for="banner"
+              class="border flex-1 p-5 w-full rounded-2xl text-center font-bold hover:bg-yellow-100  hover:text-yellow-700 hover:border-yellow-100 transition-all"
+              >Choose Engaging Backdrop</label
             >
           </div>
         </div>

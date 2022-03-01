@@ -9,8 +9,11 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-replace": "^4.0.0",
     "autoprefixer": "^10.4.2",
+    "dotenv": "^16.0.0",
     "postcss": "^8.4.5",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
@@ -24,11 +27,13 @@
   "dependencies": {
     "@beyonk/svelte-datepicker": "^12.0.0",
     "@splidejs/svelte-splide": "^0.1.18",
+    "@supabase/supabase-js": "^1.30.7",
     "daisyui": "^1.19.0",
     "greeting-time": "^1.0.0",
     "js-confetti": "^0.10.2",
     "shepherd.js": "^9.0.0",
     "sirv-cli": "^1.0.0",
+    "superagent": "^7.1.1",
     "svelte-calendar": "^3.1.6",
     "svelte-emoji-selector": "^1.0.1",
     "svelte-spa-router": "^3.2.0"

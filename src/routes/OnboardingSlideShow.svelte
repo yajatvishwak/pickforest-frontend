@@ -1,4 +1,6 @@
 <script>
+    import { fade } from "svelte/transition";
+    
     let slides = [
         {
             emoji: "🥳",
@@ -45,7 +47,6 @@
     ];
     let currentSlide = 0;
     function next() {
-        console.log(currentSlide);
         if (currentSlide < slides.length - 1) {
             currentSlide++;
         }
@@ -57,10 +58,10 @@
     }
 </script>
 
-<div>
+<div class="">
     <div
         on:click={next}
-        class=" absolute right-2 top-1/3 p-1 md:p-3 rounded-full bg-slate-900"
+        class=" absolute right-2 top-1/3 p-1 md:p-3 hover:bg-slate-500 transition-all rounded-full bg-slate-900"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +80,7 @@
     </div>
     <div
         on:click={prev}
-        class=" absolute left-2 top-1/3  p-1 md:p-3 rounded-full bg-slate-900"
+        class=" absolute left-2 top-1/3 hover:bg-slate-500 transition-all  p-1 md:p-3 rounded-full bg-slate-900"
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -97,15 +98,19 @@
         </svg>
     </div>
     <div
-        class="bg-slate-800 min-w-full flex-none rounded-lg p-5 h-full flex flex-col justify-center items-center text-center"
+        class="bg-slate-800 min-w-full   flex-none rounded-lg p-5 h-full flex flex-col justify-center items-center text-center"
     >
-        <div class="md:text-6xl text-5xl">{slides[currentSlide].emoji}</div>
-        <div class="mt-5 md:text-3xl   font-bold">
-            {slides[currentSlide].title}
-        </div>
-        <div class="max-w-xs text-sm">
-            {slides[currentSlide].message}
-        </div>
+        {#key currentSlide}
+            <div in:fade class="md:text-6xl text-5xl">
+                {slides[currentSlide].emoji}
+            </div>
+            <div in:fade class="mt-5 md:text-3xl   font-bold">
+                {slides[currentSlide].title}
+            </div>
+            <div in:fade class="max-w-xs text-sm">
+                {slides[currentSlide].message}
+            </div>
+        {/key}
     </div>
     <div class="flex gap-2 justify-center mt-4">
         {#each slides as slide, index}
