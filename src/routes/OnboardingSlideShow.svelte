@@ -1,7 +1,6 @@
 <script>
     import { fade } from "svelte/transition";
-    import JSConfetti from "js-confetti";
-    const jsConfetti = new JSConfetti();
+    
     let slides = [
         {
             emoji: "🥳",

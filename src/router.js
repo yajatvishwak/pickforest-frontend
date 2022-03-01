@@ -3,8 +3,8 @@ import Profile from "./routes/Profile.svelte"
 import NotFound from "./routes/NotFound.svelte";
 import BucketDetail from "./routes/BucketDetail.svelte";
 import TreeDetail from "./routes/TreeDetail.svelte";
-import SignUp from "./routes/SignUp.svelte";
 import SignIn from "./routes/SignIn.svelte";
+import Process from "./routes/Process.svelte";
 import { wrap } from "svelte-spa-router/wrap";
 import { getValue } from "./store";
 import { push } from "svelte-spa-router";
@@ -24,6 +24,7 @@ const routes = {
   "/profile" : Profile,
   "/deets/:userid/:bucketid" : BucketDetail,
   "/trees/:userid/" : TreeDetail,
+  "/process" : Process,
   "/login": wrap(
     {component: SignIn,
     conditions: [
@@ -34,7 +35,6 @@ const routes = {
       }
     ]}
   ),
-  "/signup": SignUp,
   "*": NotFound,
 };
 
