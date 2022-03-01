@@ -4,9 +4,9 @@
   import greetingTime from "greeting-time";
   import OnboardingSlideShow from "./OnboardingSlideShow.svelte";
   import JSConfetti from "js-confetti";
+  import { getValue, setValue } from "../store";
   const jsConfetti = new JSConfetti();
-  const onboarding =
-    localStorage.getItem("onboarding") === "shown" ? false : true;
+  let onboarding = JSON.parse(getValue("ONBOARDING"));
 
   const emojis = ["🚀", "⚡", "✨"];
 
@@ -39,7 +39,7 @@
     <div class="modal-action ">
       <label
         on:click={() => {
-          localStorage.setItem("onboarding", "shown");
+          setValue("ONBOARDING", false);
           jsConfetti.addConfetti();
         }}
         for="my-modal3"

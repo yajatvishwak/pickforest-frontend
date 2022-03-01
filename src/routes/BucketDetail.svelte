@@ -132,7 +132,7 @@
       data.imageCardDetails = [...data.imageCardDetails];
       // send to server
     }
-    console.log("updating", data.imageCardDetails);
+    //console.log("updating", data.imageCardDetails);
   }
   function clearSelectedReaction(imageID) {
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);

@@ -1,7 +1,8 @@
 <script>
   import { push } from "svelte-spa-router";
   import { darkmode } from "../darkmode";
-  import { setValue } from "../store";
+  import { initStore, setValue } from "../store";
+  import { supabase } from "../supabaseClient";
   //import CustomDateSelector from "./CustomDateSelector.svelte";
   import TimeSelector from "./TimeSelector.svelte";
   let dragText = "Drop your awesome pictures here!";
@@ -351,9 +352,11 @@
           </a>
         </li>
         <li
-          on:click={() => {
-            setValue("AUTH", false);
-            window.location.href = "/#/signin";
+          on:click={async () => {
+            initStore();
+            const { error } = supabase.auth.signOut();
+            if (error) throw error;
+            window.location.href = "/#/login";
           }}
         >
           <!-- svelte-ignore a11y-missing-attribute -->

@@ -15,7 +15,7 @@ const routes = {
     {component: Home,
     conditions: [
       () => {
-        if (getValue("AUTH")) return true
+        if (getValue("AUTH") ) return true
         push("/login")
         return false;
       }
