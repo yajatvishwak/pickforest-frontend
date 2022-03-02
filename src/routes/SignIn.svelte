@@ -1,12 +1,29 @@
 <script>
+  import { onMount } from "svelte";
+
   let email = "";
+  let loading = true;
+  setTimeout(() => {
+    loading = false;
+  }, 5000);
   import { initStore } from "../store";
   import { supabase } from "../supabaseClient";
+  onMount(() => {
+    if (supabase.auth.user() !== null) {
+      window.location.href = "/#/process";
+    }
+  });
 
   async function login() {
-    const { _, error } = await supabase.auth.signIn({
-      email: email,
-    });
+    loading = true;
+    const { _, error } = await supabase.auth.signIn(
+      {
+        email: email,
+      },
+      {
+        redirectTo: "http://localhost:5000/#/process",
+      }
+    );
     if (error) throw error;
     try {
       // Show message to user saying Email has been sent, follow link in email to complete process.
@@ -96,10 +113,52 @@
 
         <button
           type="submit"
-          class="w-full block bg-yellow-500 hover:bg-yellow-400 focus:bg-yellow-400 text-white font-semibold rounded-lg
-                px-4 py-3 mt-6">Take me to my Dashboard</button
+          disabled={loading}
+          class="w-full  bg-yellow-500 flex justify-center items-center hover:bg-yellow-400 focus:bg-yellow-400 text-white font-semibold rounded-lg
+                px-4 py-3 mt-6"
         >
+          {#if loading}
+            hold on, on sec...
+            <div class="spinner" />
+          {:else}
+            Take me to my Dashboard
+          {/if}
+        </button>
       </form>
     </div>
   </div>
 </section>
+
+<style>
+  .spinner {
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255, 255, 255);
+
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1s infinite ease-in-out;
+    animation: sk-scaleout 1s infinite ease-in-out;
+  }
+
+  @-webkit-keyframes sk-scaleout {
+    0% {
+      -webkit-transform: scale(0);
+    }
+    100% {
+      -webkit-transform: scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes sk-scaleout {
+    0% {
+      -webkit-transform: scale(0);
+      transform: scale(0);
+    }
+    100% {
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+</style>

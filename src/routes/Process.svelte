@@ -24,6 +24,7 @@
     });
     let response = res.body.authtype;
     let tempjwt = res.body.jwt;
+    console.log(tempjwt);
     console.log("broooooo", response);
     if (response === "signin") {
       //set jwt
