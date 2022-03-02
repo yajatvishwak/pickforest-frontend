@@ -5,10 +5,17 @@
   import OnboardingSlideShow from "./OnboardingSlideShow.svelte";
   import JSConfetti from "js-confetti";
   import { getValue, setValue } from "../store";
+  import { onMount } from "svelte";
+  import superagent from "superagent";
   const jsConfetti = new JSConfetti();
   let onboarding = JSON.parse(getValue("ONBOARDING"));
+  let baseurl = __api.env.SVELTE_APP_BASE_URL;
 
   const emojis = ["🚀", "⚡", "✨"];
+  let loading = false;
+  onMount(async () => {
+    superagent.post(baseurl + "/");
+  });
 
   const data = {
     noOfBuckets: 12,
@@ -16,7 +23,7 @@
     maxVotes: 55,
     bucketDetails: [
       {
-        bucketID: "Thisisbro",
+        bucketID: "goXeZYfeTxgR2yJPvJUjt",
         bucketName: "Super Awesome Bucket of yajat vishwakarma",
         imageList: [
           "asset/1.png",

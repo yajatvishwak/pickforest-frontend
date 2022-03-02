@@ -4,7 +4,7 @@
   export let isAdmin = true; // server verifies
   let isReactionDrawerOpen = false;
   export let isWinner = false;
-  export let imgURL = "";
+  export let imgURL = "https://picsum.photos/400";
   export let reaction = {};
   export let imageID = "";
   export let reactionID = "";
@@ -15,6 +15,8 @@
   export let updateSelectedReaction = () => {};
   export let clearSelectedReaction = () => {};
   let loading = true;
+  let baseurl = __api.env.SVELTE_APP_BASE_URL;
+  imgURL = baseurl + "photos/getimg/" + imgURL;
   console.log("logging from image card", reactionID);
 
   let reactionElements = [
@@ -41,11 +43,12 @@
     <Skeleton />
     <div class="mt-3">loading, have some tea</div>
     <img
+      rel="preload"
       class="hidden"
       on:load={() => {
         loading = false;
       }}
-      src="https://picsum.photos/400"
+      src={imgURL}
       alt=""
       srcset=""
     />
@@ -98,7 +101,12 @@
       {/if}
       <div class="overflow-x-auto shadow-2xl flex rounded-xl snap">
         <div class="flex-none  w-full min-w-0 snapChild">
-          <img class={`h-96 w-full object-cover  `} src={imgURL} alt="dff" />
+          <img
+            rel="preload"
+            class={`h-96 w-full object-cover  `}
+            src={imgURL}
+            alt="dff"
+          />
         </div>
         {#each Object.keys(reaction) as r, index}
           <div
@@ -111,7 +119,7 @@
                 colors="primary:#121331,secondary:#121331"
                 class=" w-14 h-14 lg:w-20 lg:h-20"
               />
-              <div>{reaction[r]} reactions</div>
+              <div class="text-black">{reaction[r]} reactions</div>
             </div>
           </div>
         {/each}
@@ -250,6 +258,7 @@
           </div>
         {/if}
         <img
+          rel="preload"
           class={`rounded-xl h-96 shadow-lg w-full object-cover`}
           src={imgURL}
           alt="dff"

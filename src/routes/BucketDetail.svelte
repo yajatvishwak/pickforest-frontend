@@ -1,74 +1,87 @@
 <script>
+  import { onMount } from "svelte";
+
   export let params = {};
   import CountDown from "../components/CountDown.svelte";
   import ImageCard from "../components/ImageCard.svelte";
   import NavBar from "../components/NavBar.svelte";
-
-  const userID = params.userid;
+  import superagent from "superagent";
+  import { getValue } from "../store";
+  let baseurl = __api.env.SVELTE_APP_BASE_URL;
   const bucketID = params.bucketid;
   //console.log(userID, bucketID);
   let data = {};
-  fillData();
-  function fillData() {
-    // servercall
+  let loading = true;
+  onMount(async () => {
+    await fillData();
+    console.log(data);
+    loading = false;
+  });
+
+  async function fillData() {
+    const res = await superagent
+      .post(baseurl + "bucket/get")
+      .send({ token: getValue("JWT"), bucketID: bucketID });
+    console.log(res.body);
     const freshdatafromserver = {
-      bucketID: "bucketID",
-      userID: "userID",
-      isAdmin: false,
-      bucketName: "Bucket #1",
-      userName: "Danny Boi",
-      targetDate: "Jan 17, 2022",
-      winnerImage: "imag1", // imageID
-      imageCardDetails: [
-        {
-          imageID: "imag1",
-          imgURL: "https://picsum.photos/400",
-          votes: {
-            upvotes: 50,
-            downvotes: 30,
-          },
-          reactions: {
-            confetti: 0,
-            wow: 0,
-            heart: 0,
-            dislike: 0,
-          },
-          voted: "notvoted",
-          reacted: "notreacted",
-        },
-        {
-          imageID: "imag2",
-          imgURL: "https://picsum.photos/400",
-          votes: {
-            upvotes: 20,
-            downvotes: 30,
-          },
-          reactions: {
-            confetti: 0,
-            wow: 0,
-            heart: 0,
-            dislike: 0,
-          },
-          voted: "notvoted",
-          reacted: "notreacted",
-        },
-        {
-          imageID: "imag3",
-          imgURL: "https://picsum.photos/400",
-          votes: {
-            upvotes: 20,
-            downvotes: 30,
-          },
-          reactions: {
-            confetti: 0,
-            wow: 0,
-            heart: 0,
-            dislike: 0,
-          },
-          voted: "notvoted",
-          reacted: "notreacted",
-        },
-      ],
+      bucketID: res.body.bucketID,
+      userID: res.body.userID,
+      isAdmin: res.body.isAdmin,
+      bucketName: res.body.bucketName,
+      userName: getValue("USERNAME"),
+      targetDate: res.body.expiryAt,
+      winnerImage: res.body.winnerImage, // imageID
+      imageCardDetails: res.body.imageCardDetails,
+      // imageCardDetails: [
+      //   {
+      //     imageID: "imag1",
+      //     imgURL: "https://picsum.photos/400",
+      //     votes: {
+      //       upvotes: 50,
+      //       downvotes: 30,
+      //     },
+      //     reactions: {
+      //       confetti: 0,
+      //       wow: 0,
+      //       heart: 0,
+      //       dislike: 0,
+      //     },
+      //     voted: "notvoted",
+      //     reacted: "notreacted",
+      //   },
+      //   {
+      //     imageID: "imag2",
+      //     imgURL: "https://picsum.photos/400",
+      //     votes: {
+      //       upvotes: 20,
+      //       downvotes: 30,
+      //     },
+      //     reactions: {
+      //       confetti: 0,
+      //       wow: 0,
+      //       heart: 0,
+      //       dislike: 0,
+      //     },
+      //     voted: "notvoted",
+      //     reacted: "notreacted",
+      //   },
+      //   {
+      //     imageID: "imag3",
+      //     imgURL: "https://picsum.photos/400",
+      //     votes: {
+      //       upvotes: 20,
+      //       downvotes: 30,
+      //     },
+      //     reactions: {
+      //       confetti: 0,
+      //       wow: 0,
+      //       heart: 0,
+      //       dislike: 0,
+      //     },
+      //     voted: "notvoted",
+      //     reacted: "notreacted",
+      //   },
+      // ],
     };
     data = freshdatafromserver;
     console.log(data.imageCardDetails);
@@ -167,22 +180,26 @@
       </div>
     </div>
     <div class="grid mt-10 lg:grid-cols-3 gap-10">
-      {#each data.imageCardDetails as ImageCardDetail}
-        <ImageCard
-          isWinner={data.winnerImage === ImageCardDetail.imageID}
-          imgURL={ImageCardDetail.imgURL}
-          reaction={ImageCardDetail.reactions}
-          votes={ImageCardDetail.votes}
-          imageID={ImageCardDetail.imageID}
-          isAdmin={data.isAdmin}
-          voted={ImageCardDetail.voted}
-          bind:reactionID={ImageCardDetail.reacted}
-          {upvote}
-          {downvote}
-          {updateSelectedReaction}
-          {clearSelectedReaction}
-        />
-      {/each}
+      {#if loading === true}
+        loafing
+      {:else}
+        {#each data.imageCardDetails as ImageCardDetail}
+          <ImageCard
+            isWinner={data.winnerImage === ImageCardDetail.imageID}
+            imgURL={ImageCardDetail.imgURL}
+            reaction={ImageCardDetail.reactions}
+            votes={ImageCardDetail.votes}
+            imageID={ImageCardDetail.imageID}
+            isAdmin={data.isAdmin}
+            voted={ImageCardDetail.voted}
+            bind:reactionID={ImageCardDetail.reacted}
+            {upvote}
+            {downvote}
+            {updateSelectedReaction}
+            {clearSelectedReaction}
+          />
+        {/each}
+      {/if}
     </div>
   </div>
 </section>

@@ -51,6 +51,8 @@
     console.log(res.body);
     setValue("AUTH", true);
     setValue("ONBOARDING", true);
+    setValue("USERNAME", username);
+    //setValue("PFP_LINK", res.body.pfp);
     window.location.href = "/#/";
   }
 </script>

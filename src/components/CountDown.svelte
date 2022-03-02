@@ -25,7 +25,7 @@
   <div class="font-mono">Bucket Voting Expired</div>
 {:else}
   <div
-    class="grid grid-flow-col grid-rows-2 md:grid-rows-none gap-5 place-items-end auto-cols-max"
+    class="grid grid-flow-col  md:grid-rows-none gap-5 place-items-end auto-cols-max"
   >
     <div>
       <span class="font-mono text-4xl countdown">

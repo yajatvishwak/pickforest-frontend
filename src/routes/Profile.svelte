@@ -189,7 +189,7 @@
       </div>
       <input type="checkbox" class="toggle" bind:checked={$darkmode} />
     </div>
-    <div
+    <!-- <div
       class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border dark:border-slate-500"
     >
       <div class="font-bold text-2xl mb-3 mt-2">Change Password</div>
@@ -214,7 +214,7 @@
           Change Password
         </div>
       </form>
-    </div>
+    </div> -->
 
     <div
       class="p-5  max-w-screen-lg w-full flex flex-col rounded-2xl border dark:border-slate-500"
