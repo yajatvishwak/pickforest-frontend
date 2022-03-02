@@ -30,7 +30,7 @@
       //set jwt
       // login
       setValue("AUTH", true);
-      setValue("JWT", tempjwt);
+      setValue("JWT", tempjwt.substr(1, tempjwt.length));
       setValue("ONBOARDING", false);
       window.location.href = "/#/";
     } else {

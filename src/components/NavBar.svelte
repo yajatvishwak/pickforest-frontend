@@ -1,14 +1,28 @@
 <script>
   import { push } from "svelte-spa-router";
   import { darkmode } from "../darkmode";
-  import { initStore, setValue } from "../store";
+  import { getValue, initStore, setValue } from "../store";
   import { supabase } from "../supabaseClient";
+  import superagent from "superagent";
   //import CustomDateSelector from "./CustomDateSelector.svelte";
   import TimeSelector from "./TimeSelector.svelte";
+  import Loader from "./Loader.svelte";
+  let baseurl = __api.env.SVELTE_APP_BASE_URL;
+  let loading = false;
   let dragText = "Drop your awesome pictures here!";
-  let timeslots = ["1hr", "2hr", "3hr", "5hr"];
-  let selectedTime = "1hr";
+  let timeslots = ["1 hr", "2 hr", "3 hr", "5 hr", "1 week"];
+  let timeid = {
+    "1 hr": "1h",
+    "2 hr": "2h",
+    "3 hr": "3h",
+    "5 hr": "5h",
+    "1 week": "1w",
+  };
+
+  let bucketname = "";
+  let selectedTime = "1h";
   let files = [];
+
   let customTimeMode = false;
   let fileLoc = [];
   const getImage = async (file) => {
@@ -49,6 +63,30 @@
       }
     }
     console.log(fileLoc);
+  }
+
+  async function createBucket() {
+    loading = true;
+    console.log(selectedTime);
+    console.log(bucketname);
+    console.log("this is files", files);
+    const fd = new FormData();
+
+    files.map((item) => {
+      fd.append("files", item);
+    });
+    fd.append("bucketname", bucketname);
+    fd.append("expirytime", selectedTime);
+
+    const res = await superagent
+      .post(baseurl + "bucket/create")
+      .set("token", getValue("JWT"))
+      .send(fd);
+    console.log(res.body);
+    if (res.body.status === "success") {
+      window.location.href =
+        "/#/deets/" + getValue("USERNAME") + "/" + res.body.bucketid;
+    }
   }
 </script>
 
@@ -124,6 +162,7 @@
             <span class="">Bucket Name</span>
           </label>
           <input
+            bind:value={bucketname}
             type="text"
             placeholder="Super Aweesome Bucket"
             class="input input-bordered dark:bg-slate-700"
@@ -144,7 +183,7 @@
               </div> -->
               <div />
             {:else}
-              <TimeSelector bind:timeslots bind:selectedTime />
+              <TimeSelector bind:timeslots bind:timeid bind:selectedTime />
               <div class="alert dark:bg-slate-700 mt-4">
                 <div class="">
                   <div>
@@ -183,6 +222,7 @@
             id="uploadbroski"
             hidden
             multiple
+            accept="image/*"
             on:change={(e) => {
               console.log(e.target.files);
               files = Array.from(e.target.files).map((file) => {
@@ -221,7 +261,14 @@
           {/each}
         </div>
         <div class="modal-action hidden  md:block">
-          <label class="btn btn-secondary">Create Bucket</label>
+          {#if loading}
+            <Loader />
+          {:else}
+            <label on:click={createBucket} class="btn btn-secondary"
+              >Create Bucket</label
+            >
+          {/if}
+
           <label for="my-modal-2" class="btn">Close</label>
         </div>
 
@@ -243,23 +290,27 @@
             </svg>
           </label>
           <div
-            on:click={() => console.log(selectedTime)}
+            on:click={createBucket}
             class="ml-auto mr-5 hover:text-green-400"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
+            {#if loading}
+              <Loader />
+            {:else}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            {/if}
           </div>
           <label for="my-modal-2" class=" hover:text-red-400">
             <svg
