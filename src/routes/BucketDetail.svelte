@@ -307,40 +307,42 @@
             </div>
           </div>
           {#if sharableopen}
-            <div in:fade class="mt-3 mono ">
-              {window.location.href}
-            </div>
-            <div
-              on:click={() => {
-                Toastify({
-                  text: "Copied to clipboard",
-                  duration: 3000,
-                  newWindow: true,
-                  close: true,
-                  gravity: "top", // `top` or `bottom`
-                  position: "right", // `left`, `center` or `right`
-                  stopOnFocus: true, // Prevents dismissing of toast on hover
-                  style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                  },
-                }).showToast();
-                navigator.clipboard.writeText(window.location.href);
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
+            <div class="flex items-center  ">
+              <div in:fade class="mt-3 p-3">
+                {window.location.href}
+              </div>
+              <div
+                on:click={() => {
+                  Toastify({
+                    text: "Copied to clipboard",
+                    duration: 3000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                      background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                  }).showToast();
+                  navigator.clipboard.writeText(window.location.href);
+                }}
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                />
-              </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                  />
+                </svg>
+              </div>
             </div>
           {/if}
         </div>
@@ -378,6 +380,12 @@
     font-family: "Space Mono", monospace;
     overflow-wrap: break-word;
     max-width: 300px;
+    word-wrap: break-word;
+  }
+  .mono-md {
+    font-family: "Space Mono", monospace;
+    overflow-wrap: break-word;
+    max-width: 1300px;
     word-wrap: break-word;
   }
   .newfont {
