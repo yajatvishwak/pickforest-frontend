@@ -28,25 +28,25 @@
     class="grid grid-flow-col  md:grid-rows-none gap-5 place-items-end auto-cols-max"
   >
     <div>
-      <span class="font-mono text-4xl countdown">
+      <span class="font-mono text-3xl countdown">
         <span style={`--value:${days};`} />
       </span>
       days
     </div>
     <div>
-      <span class="font-mono text-4xl countdown">
+      <span class="font-mono text-3xl countdown">
         <span style={`--value:${hours};`} />
       </span>
       hours
     </div>
     <div>
-      <span class="font-mono text-4xl countdown">
+      <span class="font-mono text-3xl countdown">
         <span style={`--value:${min};`} />
       </span>
       min
     </div>
     <div>
-      <span class="font-mono text-4xl countdown">
+      <span class="font-mono text-3xl countdown">
         <span style={`--value:${sec};`} />
       </span>
       sec

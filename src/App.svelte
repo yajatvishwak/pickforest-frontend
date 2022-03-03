@@ -1,6 +1,7 @@
 <script>
   import Router from "svelte-spa-router";
   import routes from "./router";
+  import "toastify-js/src/toastify.css";
   //export let name;
 </script>
 

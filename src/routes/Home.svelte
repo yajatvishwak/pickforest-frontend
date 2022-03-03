@@ -13,29 +13,46 @@
 
   const emojis = ["🚀", "⚡", "✨"];
   let loading = false;
+  let data = { bucketDetails: [] };
   onMount(async () => {
-    superagent.post(baseurl + "/");
+    const res = await superagent
+      .get(baseurl + "bucket/home")
+      .set("token", getValue("JWT"));
+    console.log("thios is home", res.body);
+    data = {
+      bucketDetails: res.body,
+      // bucketDetails: [
+      //   {
+      //     bucketID: "goXeZYfeTxgR2yJPvJUjt",
+      //     bucketName: "Super Awesome Bucket of yajat vishwakarma",
+      //     imageList: [
+      //       "asset/1.png",
+      //       "asset/2.png",
+      //       "asset/3.png",
+      //       "asset/3.png",
+      //       "asset/3.png",
+      //     ],
+      //     votesOnBucket: 23,
+      //   },
+      // ],
+    };
   });
-
-  const data = {
-    noOfBuckets: 12,
-    noOfVotes: 123,
-    maxVotes: 55,
-    bucketDetails: [
-      {
-        bucketID: "goXeZYfeTxgR2yJPvJUjt",
-        bucketName: "Super Awesome Bucket of yajat vishwakarma",
-        imageList: [
-          "asset/1.png",
-          "asset/2.png",
-          "asset/3.png",
-          "asset/3.png",
-          "asset/3.png",
-        ],
-        votesOnBucket: 23,
-      },
-    ],
-  };
+  // let data = {
+  //   bucketDetails: [
+  //     {
+  //       bucketID: "goXeZYfeTxgR2yJPvJUjt",
+  //       bucketName: "Super Awesome Bucket of yajat vishwakarma",
+  //       imageList: [
+  //         "asset/1.png",
+  //         "asset/2.png",
+  //         "asset/3.png",
+  //         "asset/3.png",
+  //         "asset/3.png",
+  //       ],
+  //       votesOnBucket: 23,
+  //     },
+  //   ],
+  // };
 </script>
 
 <input

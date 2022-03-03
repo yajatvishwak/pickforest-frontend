@@ -1,4 +1,5 @@
 <script>
+  import superagent from "superagent";
   import ReactionBar from "./ReactionBar.svelte";
   import Skeleton from "./Skeleton.svelte";
   export let isAdmin = true; // server verifies
@@ -16,7 +17,7 @@
   export let clearSelectedReaction = () => {};
   let loading = true;
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
-  imgURL = baseurl + "photos/getimg/" + imgURL;
+  $: imgURL = baseurl + "photos/getimg/" + imgURL;
   console.log("logging from image card", reactionID);
 
   let reactionElements = [

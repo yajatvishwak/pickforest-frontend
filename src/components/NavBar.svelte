@@ -162,6 +162,7 @@
             <span class="">Bucket Name</span>
           </label>
           <input
+            required
             bind:value={bucketname}
             type="text"
             placeholder="Super Aweesome Bucket"

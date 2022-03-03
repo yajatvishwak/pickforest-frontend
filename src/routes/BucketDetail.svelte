@@ -1,13 +1,17 @@
 <script>
   import { onMount } from "svelte";
-
+  import { darkmode } from "../darkmode";
   export let params = {};
   import CountDown from "../components/CountDown.svelte";
   import ImageCard from "../components/ImageCard.svelte";
   import NavBar from "../components/NavBar.svelte";
   import superagent from "superagent";
   import { getValue } from "../store";
+  import { fade } from "svelte/transition";
+  import Toastify from "toastify-js";
+
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
+  let sharableopen = false;
   const bucketID = params.bucketid;
   //console.log(userID, bucketID);
   let data = {};
@@ -28,7 +32,7 @@
       userID: res.body.userID,
       isAdmin: res.body.isAdmin,
       bucketName: res.body.bucketName,
-      userName: getValue("USERNAME"),
+      userName: res.body.name,
       targetDate: res.body.expiryAt,
       winnerImage: res.body.winnerImage, // imageID
       imageCardDetails: res.body.imageCardDetails,
@@ -95,19 +99,40 @@
       item.voted = "upvoted";
       data.imageCardDetails = [...data.imageCardDetails];
       // update on server
+      superagent
+        .post(baseurl + "bucket/select-upvote")
+        .send({ imageID, bucketID })
+        .then((res) => {
+          console.log(res.body);
+        });
+      //select upvote
     } else if (item.voted === "downvoted") {
       item.votes.upvotes += 1;
       item.votes.downvotes -= 1;
       item.voted = "upvoted";
       data.imageCardDetails = [...data.imageCardDetails];
+      //select upvote
+      //unselectdownvote
+      superagent
+        .post(baseurl + "bucket/usdown-sup")
+        .send({ imageID, bucketID })
+        .then((res) => {
+          console.log(res.body);
+        });
       // update on server
     } else {
       item.votes.upvotes -= 1;
       item.voted = "notvoted";
       data.imageCardDetails = [...data.imageCardDetails];
+      //unselect
+      superagent
+        .post(baseurl + "bucket/unselect-upvote")
+        .send({ imageID, bucketID })
+        .then((res) => {
+          console.log(res.body);
+        });
       //alert("Already voted, stop pressing random buttons you moron");
     }
-
     console.log(data.imageCardDetails);
   }
   function downvote(imageID) {
@@ -117,6 +142,13 @@
       item.votes.downvotes += 1;
       item.voted = "downvoted";
       data.imageCardDetails = [...data.imageCardDetails];
+      //select downvote
+      superagent
+        .post(baseurl + "bucket/select-downvote")
+        .send({ imageID, bucketID })
+        .then((res) => {
+          console.log(res.body);
+        });
       // update on server
     } else if (item.voted === "upvoted") {
       item.votes.upvotes -= 1;
@@ -124,10 +156,23 @@
       item.voted = "downvoted";
       data.imageCardDetails = [...data.imageCardDetails];
       // update on server
+      superagent
+        .post(baseurl + "bucket/usup-sdown")
+        .send({ imageID, bucketID })
+        .then((res) => {
+          console.log(res.body);
+        });
     } else {
       item.votes.downvotes -= 1;
       item.voted = "notvoted";
       data.imageCardDetails = [...data.imageCardDetails];
+      //unselect downvote
+      superagent
+        .post(baseurl + "bucket/unselect-downvote")
+        .send({ imageID, bucketID })
+        .then((res) => {
+          console.log(res.body);
+        });
       //alert("Already voted, stop pressing random buttons you moron");
     }
   }
@@ -157,9 +202,47 @@
 </script>
 
 <section class=" h-full  w-full flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
-  <NavBar />
+  {#if getValue("JWT") === undefined || getValue("JWT") === null}
+    <div
+      class="flex items-center gap-3 mt-4  py-4 justify-between rounded-2  xl"
+    >
+      <div class="flex items-center gap-3">
+        <img src="asset/logo.svg" class="" alt="" srcset="" />
+        <div
+          on:click={() =>
+            (window.location.href = "https://pickforest-landing.vercel.app")}
+          class="text-xl font-bold"
+        >
+          PickForest
+        </div>
+      </div>
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <a class="flex  gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          />
+        </svg>
+        <div>
+          <input type="checkbox" class="toggle" bind:checked={$darkmode} />
+        </div>
+      </a>
+    </div>
+  {:else}
+    <NavBar />
+  {/if}
+
   <div class="mx-auto">
-    <div class="flex  justify-between lg:items-center lg:flex-row flex-col ">
+    <div class="flex  justify-between md:items-center lg:flex-row flex-col ">
       <div>
         <div class="text-4xl mt-10 font-bold">{data.bucketName}</div>
         <div class="flex items-center gap-5 mt-3 ">
@@ -173,15 +256,100 @@
           <div class="opacity-70 newfont text-xl">by {data.userName}</div>
         </div>
       </div>
-      <div class="mt-5 flex gap-7">
-        <div class="flex gap-3 ">
+      <div class="mt-6 flex flex-col gap-3 ">
+        <div class="flex gap-3  ">
           <CountDown targetDate={new Date(data.targetDate)} />
         </div>
       </div>
     </div>
+    {#if getValue("JWT") === null || getValue("JWT") === undefined}
+      <div />
+    {:else}
+      <div class="flex">
+        <div
+          on:click={() => (sharableopen = !sharableopen)}
+          class="my-5 p-4 w-full max-w-xl  flex flex-col bg-amber-100 dark:bg-slate-800 rounded-box"
+        >
+          <div class="flex items-center justify-between">
+            <div class="font-bold">Shareable link</div>
+            <div class="font-bold">
+              {#if sharableopen}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M5 15l7-7 7 7"
+                  />
+                </svg>
+              {:else}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              {/if}
+            </div>
+          </div>
+          {#if sharableopen}
+            <div in:fade class="mt-3 mono ">
+              {window.location.href}
+            </div>
+            <div
+              on:click={() => {
+                Toastify({
+                  text: "Copied to clipboard",
+                  duration: 3000,
+                  newWindow: true,
+                  close: true,
+                  gravity: "top", // `top` or `bottom`
+                  position: "right", // `left`, `center` or `right`
+                  stopOnFocus: true, // Prevents dismissing of toast on hover
+                  style: {
+                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+                  },
+                }).showToast();
+                navigator.clipboard.writeText(window.location.href);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
+              </svg>
+            </div>
+          {/if}
+        </div>
+      </div>
+    {/if}
+
     <div class="grid mt-10 lg:grid-cols-3 gap-10">
       {#if loading === true}
-        loafing
+        loading...
       {:else}
         {#each data.imageCardDetails as ImageCardDetail}
           <ImageCard
@@ -205,6 +373,13 @@
 </section>
 
 <style>
+  @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+  .mono {
+    font-family: "Space Mono", monospace;
+    overflow-wrap: break-word;
+    max-width: 300px;
+    word-wrap: break-word;
+  }
   .newfont {
     font-family: "Harmattan", sans-serif;
   }

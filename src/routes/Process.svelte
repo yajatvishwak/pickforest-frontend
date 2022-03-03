@@ -5,6 +5,7 @@
   import { supabase } from "../supabaseClient";
   const baseurl = __api.env.SVELTE_APP_BASE_URL;
   let username = "";
+  let subname = "";
   let files = null;
   onMount(() => {
     prereq();
@@ -32,6 +33,7 @@
       setValue("AUTH", true);
       setValue("JWT", tempjwt.substr(1, tempjwt.length));
       setValue("ONBOARDING", false);
+      setValue("USERID", user.id);
       window.location.href = "/#/";
     } else {
       setValue("JWT", tempjwt);
@@ -40,8 +42,10 @@
   }
   async function onboard(e) {
     const formdata = new FormData();
+    const user = supabase.auth.user();
     formdata.append("pfp", files[0]);
     formdata.append("username", username);
+    formdata.append("subname", subname);
     formdata.append("token", getValue("JWT"));
     const res = await superagent
       .post(baseurl + "auth/onboard")
@@ -52,6 +56,7 @@
     setValue("AUTH", true);
     setValue("ONBOARDING", true);
     setValue("USERNAME", username);
+    setValue("USERID", user.id);
     //setValue("PFP_LINK", res.body.pfp);
     window.location.href = "/#/";
   }
@@ -67,6 +72,14 @@
         bind:value={username}
         type="text"
         placeholder="username"
+        name=""
+        id=""
+      />
+      <input
+        class="text-black"
+        bind:value={subname}
+        type="text"
+        placeholder="Subname"
         name=""
         id=""
       />

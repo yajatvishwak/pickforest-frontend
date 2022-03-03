@@ -24,7 +24,7 @@
     >
       {emoji}
     </div>
-    <div class="md:text-xl text-lg  linkfont font-medium">
+    <div class="md:text-xl text-lg truncate bro linkfont font-medium">
       {title}
     </div>
   </div>
@@ -119,6 +119,9 @@
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap");
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+  .bro {
+    max-width: 10em;
+  }
   .monofont {
     font-family: "Roboto Mono", monospace;
   }

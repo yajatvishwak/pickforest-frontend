@@ -3,11 +3,17 @@
   import EmojiSelector from "svelte-emoji-selector";
   import NavBar from "../components/NavBar.svelte";
   import Footer from "../components/Footer.svelte";
+  import superagent from "superagent";
   import { push } from "svelte-spa-router";
   import { darkmode } from "../darkmode";
+  import Toastify from "toastify-js";
+  import { getValue } from "../store";
+  import { onMount } from "svelte";
+
   const userID = localStorage.getItem("userID");
   let isModalOpen = false;
-
+  let isAddModalOpen = false;
+  let baseurl = __api.env.SVELTE_APP_BASE_URL;
   let data = {
     name: "Danny Boiiii",
     subname: "Ultra cool twitch streamer",
@@ -29,7 +35,35 @@
       },
     ],
   };
-  let editTree = {};
+  onMount(async () => {
+    await fill();
+  });
+  async function fill() {
+    const res = await superagent
+      .get(baseurl + "user/get/" + getValue("USERID"))
+      .set("token", getValue("JWT"));
+    console.log(res.body);
+    data = {
+      name: res.body.name,
+      subname: res.body.subname || "",
+      coverURL:
+        "https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1",
+      pfp: baseurl + "photos/getpfp/" + res.body.pfp,
+      trees: res.body.trees,
+    };
+  }
+
+  let editTree = {
+    url: "",
+    emoji: "",
+    title: "",
+    treeID: "",
+  };
+  let addTree = {
+    treeEmoji: "",
+    treeName: "",
+    treeLink: "",
+  };
 
   function chooseTreeToEdit(treeID) {
     editTree = data.trees.find((x) => x.treeID === treeID);
@@ -37,6 +71,9 @@
   }
   function onEmoji(event) {
     editTree.emoji = event.detail;
+  }
+  function onAddEmoji(event) {
+    addTree.treeEmoji = event.detail;
   }
   function handleBanner(e) {
     let image = e.target.files[0];
@@ -58,15 +95,163 @@
       //console.log(previewImage);
     };
   }
+  async function createTree() {
+    //add validation
+    if (
+      addTree.treeEmoji === "" ||
+      addTree.treeLink === "" ||
+      addTree.treeName === ""
+    )
+      return Toastify({
+        text: "Fill in All the details please (Emoji, Name, Link)",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
+
+    const res = await superagent.post(baseurl + "user/create-tree").send({
+      url: addTree.treeLink,
+      title: addTree.treeName,
+      emoji: addTree.treeEmoji,
+      token: getValue("JWT"),
+    });
+    //console.log(res.body);
+    if (res.body.status === "success") {
+      addTree = {
+        treeEmoji: "",
+        treeName: "",
+        treeLink: "",
+      };
+      isAddModalOpen = false;
+      await fill();
+      Toastify({
+        text: "Tree Created! 🔥",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
+    }
+  }
+  async function editTreeOnServer() {
+    //add validation
+    if (editTree.emoji === "" || editTree.title === "" || editTree.url === "")
+      return Toastify({
+        text: "Fill in All the details please (Emoji, Name, Link)",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
+
+    const res = await superagent.post(baseurl + "user/update-tree").send({
+      emoji: editTree.emoji,
+      title: editTree.title,
+      url: editTree.url,
+      treeID: editTree.treeID,
+      token: getValue("JWT"),
+    });
+    console.log(res.body);
+    if (res.body.status === "success") {
+      editTree = {
+        url: "",
+        emoji: "",
+        title: "",
+      };
+      isModalOpen = false;
+      await fill();
+      Toastify({
+        text: "Tree Edited! 🔥",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+      }).showToast();
+    }
+  }
 </script>
 
+<!-- ADD MODAL -->
+<input
+  type="checkbox"
+  bind:checked={isAddModalOpen}
+  id="addTreeModal"
+  class="modal-toggle"
+/>
+<div class="modal">
+  <div class="modal-box dark:bg-slate-700">
+    <div class="text-2xl font-bold">🌳 Add Tree</div>
+    <form class="flex flex-col gap-5 mt-4">
+      <div class="flex gap-5 items-center justify-between">
+        <div class="flex items-center gap-3">
+          <label for="">Choose emoji</label>
+          <div class="p-2 rounded-xl border">
+            <EmojiSelector on:emoji={onAddEmoji} />
+          </div>
+        </div>
+        {#if addTree.treeEmoji === ""}
+          <div>No emoji selected</div>
+        {/if}
+        <p class="text-2xl">{addTree.treeEmoji}</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="">Display Title of the link</label>
+        <input
+          type="text"
+          class="p-3 bg-gray-200 dark:bg-slate-600 rounded-xl"
+          placeholder="What's the title?"
+          bind:value={addTree.treeName}
+        />
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="">Display Title of the link</label>
+        <input
+          type="text"
+          class="p-3 monofont bg-gray-200 dark:bg-slate-600 rounded-xl"
+          placeholder="What's the url?"
+          bind:value={addTree.treeLink}
+        />
+      </div>
+    </form>
+
+    <div class="modal-action">
+      <label on:click={createTree} for="addTreeModal" class="btn btn-primary"
+        >Accept</label
+      >
+      <label for="addTreeModal" class="btn">Close</label>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
 <input
   bind:checked={isModalOpen}
   type="checkbox"
   id="editTreeModal"
   class="modal-toggle"
 />
-<div class="modal ">
+<div class="modal">
   <div class="modal-box dark:bg-slate-700">
     <form class="flex flex-col gap-5">
       <div class="flex gap-5">
@@ -95,11 +280,17 @@
       </div>
     </form>
     <div class="modal-action">
-      <label for="editTreeModal" class="btn btn-primary">Accept</label>
+      <label
+        for="editTreeModal"
+        on:click={editTreeOnServer}
+        class="btn btn-primary">Accept</label
+      >
       <label for="editTreeModal" class="btn">Close</label>
     </div>
   </div>
 </div>
+
+<!-- SECTION -->
 
 <section class=" h-full flex  flex-col  p-5 pt-2.5 lg:p-10 lg:pt-5 ">
   <NavBar />
@@ -168,6 +359,12 @@
             {chooseTreeToEdit}
           />
         {/each}
+        <div
+          on:click={() => (isAddModalOpen = true)}
+          class="bg-yellow-100 cursor-pointer hover:bg-yellow-100 dark:hover:bg-slate-800 transition-all dark:bg-slate-700 p-6 rounded-xl"
+        >
+          <div class="text-center font-bold">Add Tree</div>
+        </div>
       </div>
     </div>
 

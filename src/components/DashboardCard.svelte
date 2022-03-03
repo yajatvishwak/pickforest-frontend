@@ -4,6 +4,7 @@
   export let imageList = [];
   export let bucketID = "";
   export let noOfVotes = 0;
+  let baseurl = __api.env.SVELTE_APP_BASE_URL;
   export let bucketName = "";
 </script>
 
@@ -19,7 +20,11 @@
         <div
           class="w-full absolute bg-yellow-700 opacity-25 h-full  opacity-"
         />
-        <img rel="preload" src={image} alt="demoimage" />
+        <img
+          rel="preload"
+          src={baseurl + "photos/getimg/" + image}
+          alt="demoimage"
+        />
       </div>
     {/each}
   </div>
