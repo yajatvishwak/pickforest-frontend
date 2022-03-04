@@ -5,7 +5,9 @@
   export let treeID = "";
   export let profileView;
   export let chooseTreeToEdit = () => {};
-  console.log("Tree111");
+  export let deleteTree = () => {};
+
+  //console.log("Tree111");
 </script>
 
 <div
@@ -88,9 +90,9 @@
             <div>Edit</div>
           </a>
         </li>
-        <li class="">
+        <li on:click={() => deleteTree(treeID)} class="">
+          <!-- svelte-ignore a11y-missing-attribute -->
           <a
-            href="/"
             class="hover:bg-red-300 hover:text-red-500 font-bold fontinter transition-all flex gap-5"
           >
             <svg

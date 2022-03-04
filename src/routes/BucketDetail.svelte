@@ -30,6 +30,7 @@
     const freshdatafromserver = {
       bucketID: res.body.bucketID,
       userID: res.body.userID,
+      adminPFP: res.body.adminPFP,
       isAdmin: res.body.isAdmin,
       bucketName: res.body.bucketName,
       userName: res.body.name,
@@ -176,27 +177,38 @@
       //alert("Already voted, stop pressing random buttons you moron");
     }
   }
-  function updateSelectedReaction(imageID, reaction) {
+  async function updateSelectedReaction(imageID, reaction) {
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
     if (item.reacted === "notreacted") {
       item.reactions[reaction]++;
       item.reacted = reaction;
       data.imageCardDetails = [...data.imageCardDetails];
       //send to server
+      await superagent
+        .post(baseurl + "bucket/select-reaction")
+        .send({ imageID, bucketID, reaction });
     } else {
+      await superagent
+        .post(baseurl + "bucket/both-reaction")
+        .send({ imageID, bucketID, reaction, unreaction: item.reacted });
       item.reactions[item.reacted]--;
       item.reactions[reaction]++;
       item.reacted = reaction;
       data.imageCardDetails = [...data.imageCardDetails];
       // send to server
     }
-    //console.log("updating", data.imageCardDetails);
+    console.log("updating", data.imageCardDetails);
   }
-  function clearSelectedReaction(imageID) {
+  async function clearSelectedReaction(imageID) {
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
     item.reactions[item.reacted]--;
     item.reacted = "notreacted";
+    data.imageCardDetails = [...data.imageCardDetails];
     // send to server
+    await superagent
+      .post(baseurl + "bucket/unselect-reaction")
+      .send({ imageID, bucketID, reaction: item.reacted });
+
     console.log("clearing", data.imageCardDetails);
   }
 </script>
@@ -248,9 +260,7 @@
         <div class="flex items-center gap-5 mt-3 ">
           <div class="avatar">
             <div class=" w-10 h-10 mask mask-squircle">
-              <img
-                src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-              />
+              <img alt="pp" src={baseurl + "photos/getpfp/" + data.adminPFP} />
             </div>
           </div>
           <div class="opacity-70 newfont text-xl">by {data.userName}</div>
@@ -308,7 +318,7 @@
           </div>
           {#if sharableopen}
             <div class="flex items-center  ">
-              <div in:fade class="mt-3 p-3">
+              <div in:fade class="mt-3 p-3 mono">
                 {window.location.href}
               </div>
               <div
@@ -378,16 +388,9 @@
   @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
   .mono {
     font-family: "Space Mono", monospace;
-    overflow-wrap: break-word;
-    max-width: 300px;
-    word-wrap: break-word;
+    word-break: break-all;
   }
-  .mono-md {
-    font-family: "Space Mono", monospace;
-    overflow-wrap: break-word;
-    max-width: 1300px;
-    word-wrap: break-word;
-  }
+
   .newfont {
     font-family: "Harmattan", sans-serif;
   }

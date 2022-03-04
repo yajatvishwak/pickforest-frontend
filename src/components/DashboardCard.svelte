@@ -10,7 +10,7 @@
 
 <div
   on:click={() => {
-    push("/deets/" + getValue("USERNAME") + "/" + bucketID);
+    push("/deets/" + getValue("SUBNAME") + "/" + bucketID);
   }}
   class="hover:scale-95 transition-all "
 >

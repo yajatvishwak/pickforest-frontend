@@ -19,6 +19,9 @@ PFP_LINK.subscribe(val => localStorage.setItem("PFP_LINK", val));
 const USERNAME = writable(localStorage.getItem("USERNAME") || "" );
 USERNAME.subscribe(val => localStorage.setItem("USERNAME", val));
 
+const SUBNAME = writable(localStorage.getItem("SUBNAME") || "" );
+SUBNAME.subscribe(val => localStorage.setItem("SUBNAME", val));
+
 const ONBOARDING = writable(localStorage.getItem("ONBOARDING") || "" );
 ONBOARDING.subscribe(val => localStorage.setItem("ONBOARDING", val));
 
@@ -28,6 +31,7 @@ const REACTIVE_STATES = {
     "PFP_LINK": PFP_LINK,
     "USERNAME": USERNAME,
     "ONBOARDING": ONBOARDING, 
+    "SUBNAME": SUBNAME,
 }
 
 
@@ -38,17 +42,20 @@ export function initStore(){
     localStorage.setItem("USERID", "")
     localStorage.setItem("PFP_LINK", "")
     localStorage.setItem("USERNAME", "")
+    localStorage.setItem("SUBNAME", "")
     AUTH.set(false)
     ONBOARDING.set(true)
     USERID.set("")
     PFP_LINK.set("")
-    USERNAME.set("")   
+    USERNAME.set("")
+    SUBNAME.set("")
+    
 }
 export function setValue(key, value){
     if(key in REACTIVE_STATES){
         REACTIVE_STATES[key].set(value)
     }else{
-        localStorage.setItem(key,JSON.stringify(value))
+        localStorage.setItem(key,value)
     }
 }
 

@@ -1,5 +1,6 @@
 <script>
   import { push } from "svelte-spa-router";
+  import Toastify from "toastify-js";
   import { darkmode } from "../darkmode";
   import { getValue, initStore, setValue } from "../store";
   import { supabase } from "../supabaseClient";
@@ -69,6 +70,20 @@
     loading = true;
     console.log(selectedTime);
     console.log(bucketname);
+    if (bucketname.length === 0) {
+      loading = false;
+      return Toastify({
+        text: "Bucket name required",
+        duration: 3000,
+      }).showToast();
+    }
+    if (files.length === 0) {
+      loading = false;
+      return Toastify({
+        text: "No Photos selected",
+        duration: 3000,
+      }).showToast();
+    }
     console.log("this is files", files);
     const fd = new FormData();
 
@@ -85,7 +100,7 @@
     console.log(res.body);
     if (res.body.status === "success") {
       window.location.href =
-        "/#/deets/" + getValue("USERNAME") + "/" + res.body.bucketid;
+        "/#/deets/" + getValue("SUBNAME") + "/" + res.body.bucketid;
     }
   }
 </script>
@@ -336,7 +351,10 @@
     <div class="dropdown dropdown-end ">
       <div tabindex="0" class="avatar btn lg:pl-3 p-0 dark:bg-slate-800">
         <div class="mask mask-squircle w-10 h-10 ">
-          <img alt="pp" src="https://i.pravatar.cc/500?img=32" />
+          <img
+            alt="pp"
+            src={baseurl + "photos/getpfp/" + getValue("PFP_LINK")}
+          />
         </div>
       </div>
       <ul
