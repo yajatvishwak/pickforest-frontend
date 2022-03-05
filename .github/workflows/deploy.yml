@@ -1,7 +1,6 @@
 name: Frontend Deployment 👀
 on: [push]
 jobs:
-
   build:
     name: 🔥 New Update Gang Gang
     runs-on: ubuntu-latest
@@ -13,4 +12,4 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: whoami
+        script: ls
