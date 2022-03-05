@@ -6,8 +6,9 @@
   import { getValue } from "../store";
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
   import { darkmode } from "../darkmode";
-
+  export let params = {};
   let loading = true;
+  let userID = params.userid;
   onMount(async () => {
     await fill();
     loading = false;
@@ -15,7 +16,7 @@
   async function fill() {
     loading = true;
     const res = await superagent
-      .get(baseurl + "user/get/" + getValue("USERID"))
+      .get(baseurl + "user/get/" + userID)
       .set("token", getValue("JWT"));
     //console.log(res.body);
     data = {
