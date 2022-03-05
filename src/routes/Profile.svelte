@@ -7,7 +7,7 @@
   import { push } from "svelte-spa-router";
   import { darkmode } from "../darkmode";
   import Toastify from "toastify-js";
-  import { getValue } from "../store";
+  import { getValue, setValue } from "../store";
   import { onMount } from "svelte";
 
   const userID = localStorage.getItem("userID");
@@ -76,6 +76,7 @@
       .send(fd);
 
     if (res.body.status === "success") {
+      setValue("PFP_LINK", res.body.message.pfp);
       Toastify({
         text: "Updated Successfully 🔥",
         duration: 3000,
