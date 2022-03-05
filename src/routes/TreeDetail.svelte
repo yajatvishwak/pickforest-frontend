@@ -16,6 +16,7 @@
   async function fill() {
     loading = true;
     let userID = params.userid;
+    console.log(userID);
     const res = await superagent
       .get(baseurl + "user/get/" + userID)
       .set("token", getValue("JWT"));
