@@ -1,4 +1,6 @@
 <script>
+  import { push } from "svelte-spa-router";
+
   export let url = "";
   export let title = "";
   export let emoji = "";
@@ -12,7 +14,7 @@
 
 <div
   on:click={() => {
-    if (profileView) window.location.href = url;
+    if (profileView) push(url);
   }}
   class="bg-gray-100 dark:bg-slate-700 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center cursor-pointer "
 >
@@ -52,7 +54,7 @@
     </div>
     <div
       on:click={() => {
-        window.location.href = url;
+        push(url);
       }}
       class=" hidden md:block monofont truncate hover:underline cursor-pointer"
     >
