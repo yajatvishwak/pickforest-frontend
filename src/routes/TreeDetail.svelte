@@ -8,13 +8,14 @@
   import { darkmode } from "../darkmode";
   export let params = {};
   let loading = true;
-  let userID = params.userid;
+
   onMount(async () => {
     await fill();
     loading = false;
   });
   async function fill() {
     loading = true;
+    let userID = params.userid;
     const res = await superagent
       .get(baseurl + "user/get/" + userID)
       .set("token", getValue("JWT"));
