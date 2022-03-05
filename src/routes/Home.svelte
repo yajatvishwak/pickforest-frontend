@@ -18,7 +18,7 @@
     const res = await superagent
       .get(baseurl + "bucket/home")
       .set("token", getValue("JWT"));
-    console.log("thios is home", res.body);
+    //console.log("thios is home", res.body);
     data = {
       bucketDetails: res.body,
       // bucketDetails: [

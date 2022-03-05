@@ -36,7 +36,7 @@
     const res = await superagent
       .get(baseurl + "user/get/" + getValue("USERID"))
       .set("token", getValue("JWT"));
-    console.log(res.body);
+    //console.log(res.body);
     data = {
       name: res.body.name,
       subname: res.body.subname || "",
@@ -106,22 +106,22 @@
   }
   function handleBanner(e) {
     let image = e.target.files[0];
-    //console.log(image);
+    ////console.log(image);
     let reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = (e) => {
       data = { ...data, coverURL: e.target.result };
-      //console.log(previewImage);
+      ////console.log(previewImage);
     };
   }
   function handleProfile(e) {
     let image = e.target.files[0];
-    //console.log(image);
+    ////console.log(image);
     let reader = new FileReader();
     reader.readAsDataURL(image);
     reader.onload = (e) => {
       data = { ...data, pfp: e.target.result };
-      //console.log(previewImage);
+      ////console.log(previewImage);
     };
   }
   async function createTree() {
@@ -150,7 +150,7 @@
       emoji: addTree.treeEmoji,
       token: getValue("JWT"),
     });
-    //console.log(res.body);
+    ////console.log(res.body);
     if (res.body.status === "success") {
       addTree = {
         treeEmoji: "",
@@ -196,7 +196,7 @@
       treeID: editTree.treeID,
       token: getValue("JWT"),
     });
-    console.log(res.body);
+    //console.log(res.body);
     if (res.body.status === "success") {
       editTree = {
         url: "",

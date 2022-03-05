@@ -7,7 +7,7 @@
   export let chooseTreeToEdit = () => {};
   export let deleteTree = () => {};
 
-  //console.log("Tree111");
+  ////console.log("Tree111");
 </script>
 
 <div

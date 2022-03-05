@@ -37,7 +37,7 @@
   };
 
   function dropHandler(ev) {
-    console.log("File(s) dropped");
+    //console.log("File(s) dropped");
     dragText = "Cool! Got that! Are there more?";
 
     // Prevent default behavior (Prevent file from being opened)
@@ -52,7 +52,7 @@
           var file = ev.dataTransfer.items[i].getAsFile();
           files.push(file);
           getImage(file);
-          //console.log("... file[" + i + "].name = " + file.name);
+          ////console.log("... file[" + i + "].name = " + file.name);
         }
       }
     } else {
@@ -60,16 +60,16 @@
       for (var i = 0; i < ev.dataTransfer.files.length; i++) {
         files.push(file);
         getImage(file);
-        //console.log(fileLoc);
+        ////console.log(fileLoc);
       }
     }
-    console.log(fileLoc);
+    //console.log(fileLoc);
   }
 
   async function createBucket() {
     loading = true;
-    console.log(selectedTime);
-    console.log(bucketname);
+    //console.log(selectedTime);
+    //console.log(bucketname);
     if (bucketname.length === 0) {
       loading = false;
       return Toastify({
@@ -84,7 +84,7 @@
         duration: 3000,
       }).showToast();
     }
-    console.log("this is files", files);
+    //console.log("this is files", files);
     const fd = new FormData();
 
     files.map((item) => {
@@ -97,7 +97,7 @@
       .post(baseurl + "bucket/create")
       .set("token", getValue("JWT"))
       .send(fd);
-    console.log(res.body);
+    ////console.log(res.body);
     if (res.body.status === "success") {
       window.location.href =
         "/#/deets/" + getValue("SUBNAME") + "/" + res.body.bucketid;
@@ -240,7 +240,7 @@
             multiple
             accept="image/*"
             on:change={(e) => {
-              console.log(e.target.files);
+              //console.log(e.target.files);
               files = Array.from(e.target.files).map((file) => {
                 getImage(file);
                 return file;

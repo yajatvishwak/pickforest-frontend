@@ -15,9 +15,9 @@ const routes = {
     {component: Home,
     conditions: [
       () => {
-        console.log(getValue("AUTH"))
+        //console.log(getValue("AUTH"))
         if(getValue("AUTH") === "true") {
-          //console.log("fuck")
+          ////console.log("fuck")
           return true
         }
         else {
@@ -35,10 +35,10 @@ const routes = {
     {component: SignIn,
     conditions: [
       () => {
-        //console.log("From login",getValue("AUTH"))
+        ////console.log("From login",getValue("AUTH"))
       
         if (getValue("AUTH") === "false"){
-          //console.log("in login, no auth")
+          ////console.log("in login, no auth")
           return true
         }else{
           push("/")

@@ -13,12 +13,12 @@
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
   let sharableopen = false;
   const bucketID = params.bucketid;
-  //console.log(userID, bucketID);
+  ////console.log(userID, bucketID);
   let data = {};
   let loading = true;
   onMount(async () => {
     await fillData();
-    console.log(data);
+    //console.log(data);
     loading = false;
   });
 
@@ -26,7 +26,7 @@
     const res = await superagent
       .post(baseurl + "bucket/get")
       .send({ token: getValue("JWT"), bucketID: bucketID });
-    console.log(res.body);
+    //console.log(res.body);
     const freshdatafromserver = {
       bucketID: res.body.bucketID,
       userID: res.body.userID,
@@ -89,10 +89,10 @@
       // ],
     };
     data = freshdatafromserver;
-    console.log(data.imageCardDetails);
+    //console.log(data.imageCardDetails);
   }
   function upvote(imageID) {
-    //console.log(imageID);
+    ////console.log(imageID);
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
 
     if (item.voted === "notvoted") {
@@ -104,7 +104,7 @@
         .post(baseurl + "bucket/select-upvote")
         .send({ imageID, bucketID })
         .then((res) => {
-          console.log(res.body);
+          //console.log(res.body);
         });
       //select upvote
     } else if (item.voted === "downvoted") {
@@ -118,7 +118,7 @@
         .post(baseurl + "bucket/usdown-sup")
         .send({ imageID, bucketID })
         .then((res) => {
-          console.log(res.body);
+          //console.log(res.body);
         });
       // update on server
     } else {
@@ -130,14 +130,14 @@
         .post(baseurl + "bucket/unselect-upvote")
         .send({ imageID, bucketID })
         .then((res) => {
-          console.log(res.body);
+          //console.log(res.body);
         });
       //alert("Already voted, stop pressing random buttons you moron");
     }
-    console.log(data.imageCardDetails);
+    //console.log(data.imageCardDetails);
   }
   function downvote(imageID) {
-    //console.log(imageID);
+    ////console.log(imageID);
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
     if (item.voted === "notvoted") {
       item.votes.downvotes += 1;
@@ -148,7 +148,7 @@
         .post(baseurl + "bucket/select-downvote")
         .send({ imageID, bucketID })
         .then((res) => {
-          console.log(res.body);
+          //console.log(res.body);
         });
       // update on server
     } else if (item.voted === "upvoted") {
@@ -161,7 +161,7 @@
         .post(baseurl + "bucket/usup-sdown")
         .send({ imageID, bucketID })
         .then((res) => {
-          console.log(res.body);
+          //console.log(res.body);
         });
     } else {
       item.votes.downvotes -= 1;
@@ -172,7 +172,7 @@
         .post(baseurl + "bucket/unselect-downvote")
         .send({ imageID, bucketID })
         .then((res) => {
-          console.log(res.body);
+          //console.log(res.body);
         });
       //alert("Already voted, stop pressing random buttons you moron");
     }
@@ -197,7 +197,7 @@
       data.imageCardDetails = [...data.imageCardDetails];
       // send to server
     }
-    console.log("updating", data.imageCardDetails);
+    //console.log("updating", data.imageCardDetails);
   }
   async function clearSelectedReaction(imageID) {
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
@@ -209,7 +209,7 @@
       .post(baseurl + "bucket/unselect-reaction")
       .send({ imageID, bucketID, reaction: item.reacted });
 
-    console.log("clearing", data.imageCardDetails);
+    //console.log("clearing", data.imageCardDetails);
   }
 </script>
 

@@ -29,7 +29,7 @@
     },
   ];
 
-  console.log("bro", reactionID, reactionElements);
+  //console.log("bro", reactionID, reactionElements);
   $: reactionElements = reactionElements.map((item) => {
     if (item.id === reactionID) return { ...item, selected: true };
     return { ...item, selected: false };

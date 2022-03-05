@@ -17,7 +17,7 @@
   let loading = true;
   async function prereq() {
     const user = supabase.auth.user();
-    console.log(user);
+    //console.log(user);
     if (user === null) return (window.location.href = "/#/login");
     const userid = user.id;
     const email = user.email;
@@ -41,7 +41,7 @@
       setValue("PFP_LINK", res.body.details.pfp);
       window.location.href = "/#/";
     } else {
-      console.log(tempjwt);
+      //console.log(tempjwt);
       setValue("JWT", tempjwt);
       loading = false;
     }
@@ -60,7 +60,7 @@
           .post(baseurl + "auth/onboard")
           .set("token", getValue("JWT"))
           .send(formdata);
-        console.log(res.body);
+        //console.log(res.body);
         if (res.body.status === "success") {
           setValue("AUTH", true);
           setValue("ONBOARDING", true);
@@ -151,7 +151,7 @@
             const res = await superagent
               .post(baseurl + "user/avail-username")
               .send({ subname });
-            console.log(res.body);
+            ////console.log(res.body);
             if (
               (res.body.status === "true" || res.body.status === true) &&
               subname !== ""

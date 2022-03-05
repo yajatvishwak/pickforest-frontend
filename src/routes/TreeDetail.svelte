@@ -17,7 +17,7 @@
     const res = await superagent
       .get(baseurl + "user/get/" + getValue("USERID"))
       .set("token", getValue("JWT"));
-    console.log(res.body);
+    //console.log(res.body);
     data = {
       name: res.body.name,
       subname: res.body.subname || "",

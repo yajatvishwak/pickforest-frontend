@@ -114,8 +114,8 @@ fs.writeFileSync(path.join(projectRoot, ".vscode", "extensions.json"), `{
 }
 `)
 
-console.log("Converted to TypeScript.")
+//console.log("Converted to TypeScript.")
 
 if (fs.existsSync(path.join(projectRoot, "node_modules"))) {
-  console.log("\nYou will need to re-run your dependency manager to get started.")
+  //console.log("\nYou will need to re-run your dependency manager to get started.")
 }

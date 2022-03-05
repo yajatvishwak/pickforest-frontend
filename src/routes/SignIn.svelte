@@ -33,7 +33,7 @@
       initStore();
       alert("check mail for futher instructions");
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       alert("something went wrong");
     }
   }

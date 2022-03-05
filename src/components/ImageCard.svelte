@@ -18,7 +18,7 @@
   let loading = true;
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
   $: imgURL = baseurl + "photos/getimg/" + imgURL;
-  console.log("logging from image card", reactionID);
+  //console.log("logging from image card", reactionID);
 
   let reactionElements = [
     "https://cdn.lordicon.com/lupuorrc.json",
