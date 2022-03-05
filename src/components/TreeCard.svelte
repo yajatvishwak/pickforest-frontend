@@ -1,5 +1,4 @@
 <script>
-  import { push } from "svelte-spa-router";
   import prependHttp from "../utils/prepend";
 
   export let url = "";
@@ -55,7 +54,7 @@
     </div>
     <div
       on:click={() => {
-        if (profileView) window.location.href = prependHttp(url);
+        window.location.href = prependHttp(url);
       }}
       class=" hidden md:block monofont truncate hover:underline cursor-pointer"
     >
