@@ -18,7 +18,7 @@
     let userID = params.userid;
     console.log(userID);
     const res = await superagent
-      .get(baseurl + "user/get/" + userID)
+      .get(baseurl + "user/publicget/" + userID)
       .set("token", getValue("JWT"));
     //console.log(res.body);
     data = {
