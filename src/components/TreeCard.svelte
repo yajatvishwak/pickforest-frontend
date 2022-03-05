@@ -12,8 +12,11 @@
   ////console.log("Tree111");
 </script>
 
-<div
+<a
+  href={url}
+  target="_self"
   on:click={() => {
+    console.log(url);
     if (profileView) push(url);
   }}
   class="bg-gray-100 dark:bg-slate-700 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center cursor-pointer "
@@ -52,14 +55,13 @@
         />
       </svg>
     </div>
-    <div
-      on:click={() => {
-        push(url);
-      }}
+    <a
+      href={url}
+      target="_self"
       class=" hidden md:block monofont truncate hover:underline cursor-pointer"
     >
       {url}
-    </div>
+    </a>
     <div class="dropdown  dropdown-end  ml-auto">
       <div tabindex="0" class="m-1 btn">Edit</div>
       <ul
@@ -118,7 +120,7 @@
       </ul>
     </div>
   {/if}
-</div>
+</a>
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap");
