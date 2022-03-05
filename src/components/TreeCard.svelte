@@ -1,5 +1,6 @@
 <script>
   import { push } from "svelte-spa-router";
+  import prependHttp from "../utils/prepend";
 
   export let url = "";
   export let title = "";
@@ -12,12 +13,9 @@
   ////console.log("Tree111");
 </script>
 
-<a
-  href={url}
-  target="_self"
+<div
   on:click={() => {
-    console.log(url);
-    if (profileView) push(url);
+    if (profileView) window.location.href = prependHttp(url);
   }}
   class="bg-gray-100 dark:bg-slate-700 hover:bg-yellow-100 transition w-full p-3 rounded-2xl flex items-center cursor-pointer "
 >
@@ -55,13 +53,14 @@
         />
       </svg>
     </div>
-    <a
-      href={url}
-      target="_self"
+    <div
+      on:click={() => {
+        if (profileView) window.location.href = prependHttp(url);
+      }}
       class=" hidden md:block monofont truncate hover:underline cursor-pointer"
     >
       {url}
-    </a>
+    </div>
     <div class="dropdown  dropdown-end  ml-auto">
       <div tabindex="0" class="m-1 btn">Edit</div>
       <ul
@@ -120,7 +119,7 @@
       </ul>
     </div>
   {/if}
-</a>
+</div>
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap");
