@@ -5,13 +5,13 @@
   import { getValue, initStore, setValue } from "../store";
   import { supabase } from "../supabaseClient";
   import superagent from "superagent";
-  //import CustomDateSelector from "./CustomDateSelector.svelte";
   import TimeSelector from "./TimeSelector.svelte";
   import Loader from "./Loader.svelte";
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
   let loading = false;
   let dragText = "Drop your awesome pictures here!";
   let timeslots = ["1 hr", "2 hr", "3 hr", "5 hr", "1 week"];
+
   let timeid = {
     "1 hr": "1h",
     "2 hr": "2h",
@@ -65,7 +65,6 @@
     }
     //console.log(fileLoc);
   }
-
   async function createBucket() {
     loading = true;
     //console.log(selectedTime);
@@ -84,20 +83,18 @@
         duration: 3000,
       }).showToast();
     }
-    //console.log("this is files", files);
-    const fd = new FormData();
 
+    const fd = new FormData();
     files.map((item) => {
       fd.append("files", item);
     });
     fd.append("bucketname", bucketname);
     fd.append("expirytime", selectedTime);
-
+    console.log(fd);
     const res = await superagent
       .post(baseurl + "bucket/create")
       .set("token", getValue("JWT"))
       .send(fd);
-    ////console.log(res.body);
     if (res.body.status === "success") {
       window.location.href =
         "/#/deets/" + getValue("SUBNAME") + "/" + res.body.bucketid;
@@ -230,7 +227,7 @@
         <div
           on:mouseenter={() => (dragText = "Click me to add your pictures")}
           on:mouseleave={() => (dragText = "Drop your awesome pictures here!")}
-          class="bg-yellow-100 hidden h-1/4  lg:block dark:bg-slate-900 text-center w-full p-10  rounded-lg my-3"
+          class="bg-yellow-100 hidden h-1/4  md:block dark:bg-slate-900 text-center w-full p-10  rounded-lg my-3"
         >
           <input
             type="file"

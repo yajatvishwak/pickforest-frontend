@@ -7,9 +7,26 @@
   const baseurl = __api.env.SVELTE_APP_BASE_URL;
   let username = "";
   let subname = "";
-  let files = null;
-  let cover = null;
+  let files = [];
+  let cover = [];
   let subnameok = false;
+  let pfppreview;
+  let coverpreview;
+
+  function encodeImage(file, type) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      if (type === "cover") coverpreview = reader.result;
+      if (type === "pfp") pfppreview = reader.result;
+      return reader.result;
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+
+  $: encodeImage(cover[0], "cover");
+  $: encodeImage(files[0], "pfp");
   onMount(() => {
     prereq();
   });
@@ -26,6 +43,7 @@
       email: email,
       userid: userid,
     });
+    console.log(res.body);
     let response = res.body.authtype;
     let tempjwt = res.body.jwt;
 
@@ -35,7 +53,7 @@
       setValue("AUTH", true);
       setValue("JWT", tempjwt);
       setValue("ONBOARDING", false);
-      setValue("USERID", user.id);
+      setValue("USERID", res.body.user_id);
       setValue("SUBNAME", res.body.details.subname);
       setValue("USERNAME", res.body.details.name);
       setValue("PFP_LINK", res.body.details.pfp);
@@ -49,8 +67,9 @@
   async function onboard(e) {
     const formdata = new FormData();
     const user = supabase.auth.user();
-    formdata.append("pfp", files[0]);
-    formdata.append("cover", cover[0]);
+
+    if (files.length !== 0) formdata.append("pfp", files[0]);
+    if (cover.length !== 0) formdata.append("cover", cover[0]);
     formdata.append("username", username);
     formdata.append("subname", subname);
     formdata.append("token", getValue("JWT"));
@@ -147,15 +166,16 @@
         <input
           class=" input-bordered input dark:bg-slate-800"
           required
-          on:change={async () => {
+          on:input={async () => {
+            if (subname.length <= 2) {
+              subnameok = false;
+              return;
+            }
             const res = await superagent
               .post(baseurl + "user/avail-username")
               .send({ subname });
             ////console.log(res.body);
-            if (
-              (res.body.status === "true" || res.body.status === true) &&
-              subname !== ""
-            ) {
+            if (res.body.status === "true" || res.body.status === true) {
               subnameok = true;
             } else {
               subnameok = false;
@@ -204,10 +224,87 @@
             <div>Username Not Available</div>
           </div>
         {/if}
-        <label for="pfp">your dp here pls</label>
-        <input bind:files type="file" name="" id="pfp" />
-        <label for="cover">your dp here pls</label>
-        <input bind:files={cover} type="file" name="" id="cover" />
+
+        {#if supabase.auth.user().app_metadata.provider === "google"}
+          <div />
+        {:else}
+          <div class="flex flex-col gap-3">
+            <img
+              class="w-full rounded-2xl object-cover max-h-36"
+              src={pfppreview}
+              alt=""
+            />
+
+            <label
+              class="w-full flex gap-3 items-center px-10 py-5 border-2 rounded-2xl"
+              for="pfp"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                />
+              </svg>
+              Your super cool profile picture</label
+            >
+          </div>
+
+          <input
+            hidden
+            bind:files
+            type="file"
+            accept="image/*"
+            name=""
+            id="pfp"
+          />
+          <div class="flex flex-col gap-3 max-w-sm">
+            <div class="rounded-2xl">
+              <img
+                src={coverpreview}
+                alt=""
+                class="w-full rounded-2xl object-cover max-h-36"
+                srcset=""
+              />
+            </div>
+            <label
+              for="cover"
+              class="w-full flex gap-3 items-center px-10 py-5 border-2 rounded-2xl"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                />
+              </svg>
+              Cover picture goes here</label
+            >
+          </div>
+          <input
+            hidden
+            bind:files={cover}
+            type="file"
+            accept="image/*"
+            name=""
+            id="cover"
+          />
+        {/if}
+
         <button
           class="btn dark:bg-amber-400"
           disabled={!subnameok}

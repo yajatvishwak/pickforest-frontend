@@ -9,11 +9,11 @@
   import Toastify from "toastify-js";
   import { getValue, setValue } from "../store";
   import { onMount } from "svelte";
-
-  const userID = localStorage.getItem("userID");
+  import Loader from "../components/Loader.svelte";
   let isModalOpen = false;
   let isAddModalOpen = false;
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
+
   let loading = true;
   let data = {
     name: "",
@@ -23,7 +23,7 @@
     pfp: "http://daisyui.com/tailwind-css-component-profile-1@94w.png",
     trees: [],
   };
-
+  let subnameok = true;
   let cover = null;
   let pfp = null;
 
@@ -60,16 +60,23 @@
   };
   async function save() {
     let fd = new FormData();
+    if (subnameok === false)
+      return Toastify({
+        text: "Username taken!",
+        duration: 3000,
+      }).showToast();
 
     if (cover !== null) fd.append("cover", cover[0]);
     if (pfp !== null) fd.append("pfp", pfp[0]);
     if (data.name === null || data.name.length === 0)
       return Toastify({
-        text: "Something went wrong. Oops",
+        text: "Name can not be empty",
         duration: 3000,
       }).showToast();
     fd.append("username", data.name);
-
+    fd.append("subname", data.subname);
+    setValue("SUBNAME", data.subname);
+    setValue("USERNAME", data.name);
     const res = await superagent
       .post(baseurl + "user/update-deets")
       .set({ token: getValue("JWT") })
@@ -326,7 +333,7 @@
   <NavBar />
 
   {#if loading}
-    loading...
+    <Loader />
   {:else}
     <div
       class="relative flex-col flex justify-center items-center mt-10 lg:m-10"
@@ -453,6 +460,72 @@
       >
         <div class="font-bold text-2xl mb-3 mt-2">Change Other Deets</div>
         <form class="flex flex-col gap-5">
+          <div>
+            <label for="">Username</label>
+            <input
+              class="bg-gray-100 dark:bg-slate-800 w-full  p-3 my-2 rounded-xl"
+              bind:value={data.subname}
+              on:input={async () => {
+                if (data.subname.length <= 2) {
+                  subnameok = false;
+                  return;
+                }
+                const res = await superagent
+                  .post(baseurl + "user/avail-username")
+                  .send({ subname: data.subname });
+                ////console.log(res.body);
+                if (res.body.status === "true" || res.body.status === true) {
+                  subnameok = true;
+                } else {
+                  subnameok = false;
+                }
+              }}
+              type="text"
+              required
+              placeholder="Name"
+              name=""
+              id=""
+            />
+            {#if subnameok}
+              <div class="text-green-500 flex items-center gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <div>Username OK</div>
+              </div>
+            {:else if subnameok === false}
+              <div class="text-red-500 flex items-center gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <div>Username Not Available</div>
+              </div>
+            {:else}
+              <div />
+            {/if}
+          </div>
           <div>
             <label for="">Display Name</label>
             <input

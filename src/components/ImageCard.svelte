@@ -42,7 +42,7 @@
     class="h-96 w-96 max-h-72 max-w-72 rounded-2xl gap-3 dark:bg-slate-700 flex items-center justify-center"
   >
     <Skeleton />
-    <div class="mt-3">loading, have some tea</div>
+    <div class="mt-3">Loading, have some tea</div>
     <img
       rel="preload"
       class="hidden"

@@ -9,6 +9,7 @@
   import { getValue } from "../store";
   import { fade } from "svelte/transition";
   import Toastify from "toastify-js";
+  import Loader from "../components/Loader.svelte";
 
   let baseurl = __api.env.SVELTE_APP_BASE_URL;
   let sharableopen = false;
@@ -94,7 +95,12 @@
   function upvote(imageID) {
     ////console.log(imageID);
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
-
+    if (Date.parse(data.targetDate) - Date.parse(new Date()) < 0) {
+      return Toastify({
+        text: "❌ Voting period as elapsed",
+        duration: 3000,
+      }).showToast();
+    }
     if (item.voted === "notvoted") {
       item.votes.upvotes += 1;
       item.voted = "upvoted";
@@ -138,6 +144,12 @@
   }
   function downvote(imageID) {
     ////console.log(imageID);
+    if (Date.parse(data.targetDate) - Date.parse(new Date()) < 0) {
+      return Toastify({
+        text: "❌ Voting period as elapsed",
+        duration: 3000,
+      }).showToast();
+    }
     let item = data.imageCardDetails.find((x) => x.imageID === imageID);
     if (item.voted === "notvoted") {
       item.votes.downvotes += 1;
@@ -274,7 +286,7 @@
     </div>
     {#if getValue("JWT") === null || getValue("JWT") === undefined}
       <div />
-    {:else}
+    {:else if data.isAdmin}
       <div class="flex">
         <div
           on:click={() => (sharableopen = !sharableopen)}
@@ -361,7 +373,7 @@
 
     <div class="grid mt-10 lg:grid-cols-3 gap-10">
       {#if loading === true}
-        loading...
+        <Loader />
       {:else}
         {#each data.imageCardDetails as ImageCardDetail}
           <ImageCard
