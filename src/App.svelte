@@ -3,7 +3,7 @@
   import routes from "./router";
   import "toastify-js/src/toastify.css";
   //export let name;
-  console.log("VERSION 1 (beta)");
+  console.log("VERSION 1 (beta) - changes 1");
 </script>
 
 <Router {routes} />
