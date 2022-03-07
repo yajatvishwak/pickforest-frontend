@@ -143,7 +143,7 @@
         {#if loading}
           <Loader />
         {:else}
-          <div>
+          <div class="flex gap-3 items-center">
             <img
               class="w-6"
               src="https://img.icons8.com/ios-glyphs/120/000000/google-logo--v1.png"
