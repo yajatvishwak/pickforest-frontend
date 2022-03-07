@@ -132,13 +132,20 @@
           {/if}
         </button>
       </form>
+      <div class="divider" />
       <div
         on:click={loginwithgoogle}
         disabled={loading}
-        class="w-full  bg-white flex justify-center items-center text-black font-semibold rounded-lg
-            px-4 py-3 mt-6"
+        class="w-full bg-slate-100  dark:bg-white flex justify-center items-center gap-3 text-black font-semibold rounded-lg
+            px-4 py-3"
       >
-        Login with Google
+        <div>
+          <img
+            class="w-6"
+            src="https://img.icons8.com/ios-glyphs/120/000000/google-logo--v1.png"
+          />
+        </div>
+        <div class="mt-1">Login with Google</div>
       </div>
     </div>
   </div>
