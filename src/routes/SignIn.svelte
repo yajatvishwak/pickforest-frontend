@@ -4,6 +4,7 @@
   let email = "";
   let loading = true;
   import Toastify from "toastify-js";
+  import Loader from "../components/Loader.svelte";
 
   setTimeout(() => {
     loading = false;
