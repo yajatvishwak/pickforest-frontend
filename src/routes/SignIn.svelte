@@ -139,13 +139,17 @@
         class="w-full bg-slate-100  dark:bg-white flex justify-center items-center gap-3 text-black font-semibold rounded-lg
             px-4 py-3"
       >
-        <div>
-          <img
-            class="w-6"
-            src="https://img.icons8.com/ios-glyphs/120/000000/google-logo--v1.png"
-          />
-        </div>
-        <div class="mt-1">Login with Google</div>
+        {#if loading}
+          <Loader />
+        {:else}
+          <div>
+            <img
+              class="w-6"
+              src="https://img.icons8.com/ios-glyphs/120/000000/google-logo--v1.png"
+            />
+          </div>
+          <div class="mt-1">Login with Google</div>
+        {/if}
       </div>
     </div>
   </div>
