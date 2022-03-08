@@ -99,10 +99,10 @@
 
       <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">Login</h1>
       <h1 class="max-w-xs mt-1 opacity-60 ">
-        All you need is your email to get started, Magic! 🪄
+        All you need is your gmail to get started, Magic! 🪄
       </h1>
 
-      <form class="mt-12" on:submit|preventDefault={login}>
+      <!-- <form class="mt-12" on:submit|preventDefault={login}>
         <div>
           <label class="block text-gray-700 dark:text-white"
             >Email Address</label
@@ -132,7 +132,7 @@
             Take me to my Dashboard
           {/if}
         </button>
-      </form>
+      </form> -->
       <div class="divider" />
       <div
         on:click={loginwithgoogle}
