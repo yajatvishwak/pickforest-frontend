@@ -27,7 +27,22 @@ const routes = {
       }
     ]}
   ),
-  "/profile" : Profile,
+  "/profile" : wrap(
+    {component: Profile,
+    conditions: [
+      () => {
+        //console.log(getValue("AUTH"))
+        if(getValue("AUTH") === "true") {
+          ////console.log("fuck")
+          return true
+        }
+        else {
+          push("/login")
+          return false
+        }
+      }
+    ]}
+  ),
   "/deets/:userid/:bucketid" : BucketDetail,
   "/trees/:userid/" : TreeDetail,
   "/process" : Process,
